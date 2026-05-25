@@ -1,0 +1,173 @@
+<svg width="800" height="500" viewBox="0 0 800 500" xmlns="http://www.w3.org/2000/svg">
+  <defs>
+    <linearGradient id="bg" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0%" stop-color="#f8f9fa"/>
+      <stop offset="100%" stop-color="#ffffff"/>
+    </linearGradient>
+  </defs>
+  <style>
+    text { font-family: 'DejaVu Sans', 'Arial', sans-serif; }
+    .title { fill: #1a1a2e; font-size: 14px; font-weight: bold; }
+    .subtitle { fill: #555; font-size: 9px; }
+    .stat-val { fill: #1a1a2e; font-size: 20px; font-weight: bold; }
+    .stat-label { fill: #555; font-size: 9px; }
+    .section-title { fill: #1f5878; font-size: 11px; font-weight: bold; }
+    .tag-text { fill: #555; font-size: 8px; }
+    .legend-text { fill: #333; font-size: 9px; }
+  </style>
+
+  <rect width="800" height="500" fill="url(#bg)" rx="4"/>
+
+  <!-- Title -->
+  <text x="400" y="24" text-anchor="middle" class="title">数据集摘要统计 — ABC News 新闻标题 (2003–2019)</text>
+  <text x="400" y="40" text-anchor="middle" class="subtitle">"A Million News Headlines" 数据集 (Kaggle)。从约120万条中随机抽取50,000条。</text>
+
+  <!-- ==================== LEFT COLUMN: Key 统计 ==================== -->
+  <g transform="translate(0,0)">
+    <text x="30" y="65" class="section-title">▌数据集概览</text>
+    <line x1="30" y1="70" x2="380" y2="70" stroke="#1f5878" stroke-width="0.5" opacity="0.3"/>
+
+    <!-- 合计 dataset -->
+    <rect x="30" y="80" width="160" height="60" rx="6" fill="#1f5878" opacity="0.08"/>
+    <text x="110" y="107" text-anchor="middle" class="stat-val">~1.2M</text>
+    <text x="110" y="125" text-anchor="middle" class="stat-label">总标题数</text>
+
+    <!-- Sampled -->
+    <rect x="210" y="80" width="160" height="60" rx="6" fill="#2c6e8a" opacity="0.08"/>
+    <text x="290" y="107" text-anchor="middle" class="stat-val" fill="#2c6e8a">50,000</text>
+    <text x="290" y="125" text-anchor="middle" class="stat-label">随机采样</text>
+
+    <!-- Time span -->
+    <rect x="30" y="150" width="160" height="60" rx="6" fill="#4a9bb5" opacity="0.08"/>
+    <text x="110" y="177" text-anchor="middle" class="stat-val" fill="#4a9bb5">16 yr</text>
+    <text x="110" y="195" text-anchor="middle" class="stat-label">时间跨度 (2003–2019)</text>
+
+    <!-- Embedding -->
+    <rect x="210" y="150" width="160" height="60" rx="6" fill="#27ae60" opacity="0.08"/>
+    <text x="290" y="177" text-anchor="middle" class="stat-val" fill="#27ae60">384d</text>
+    <text x="290" y="195" text-anchor="middle" class="stat-label">嵌入维度</text>
+
+    <!-- ==================== 流水线 结果 ==================== -->
+    <text x="30" y="235" class="section-title">▌流水线结果</text>
+    <line x1="30" y1="240" x2="380" y2="240" stroke="#1f5878" stroke-width="0.5" opacity="0.3"/>
+
+    <rect x="30" y="250" width="160" height="60" rx="6" fill="#1f5878" opacity="0.08"/>
+    <text x="110" y="277" text-anchor="middle" class="stat-val">94.3%</text>
+    <text x="110" y="295" text-anchor="middle" class="stat-label">标题覆盖率</text>
+
+    <rect x="210" y="250" width="160" height="60" rx="6" fill="#2c6e8a" opacity="0.08"/>
+    <text x="290" y="277" text-anchor="middle" class="stat-val" fill="#2c6e8a">585</text>
+    <text x="290" y="295" text-anchor="middle" class="stat-label">叶子主题 (已接受)</text>
+
+    <rect x="30" y="320" width="160" height="60" rx="6" fill="#4a9bb5" opacity="0.08"/>
+    <text x="110" y="347" text-anchor="middle" class="stat-val" fill="#4a9bb5">24</text>
+    <text x="110" y="365" text-anchor="middle" class="stat-label">根群组</text>
+
+    <rect x="210" y="320" width="160" height="60" rx="6" fill="#27ae60" opacity="0.08"/>
+    <text x="290" y="347" text-anchor="middle" class="stat-val" fill="#27ae60">0</text>
+    <text x="290" y="365" text-anchor="middle" class="stat-label">离群点 (0)</text>
+
+    <!-- LLM info -->
+    <rect x="30" y="390" width="340" height="55" rx="6" fill="#e67e22" opacity="0.08"/>
+    <text x="200" y="412" text-anchor="middle" class="stat-val" fill="#e67e22">592</text>
+    <text x="200" y="430" text-anchor="middle" class="stat-label">大模型API调用 (自动接受降低60%)</text>
+  </g>
+
+  <!-- ==================== RIGHT COLUMN: Visualizations ==================== -->
+  <g transform="translate(380,0)">
+    <text x="210" y="65" class="section-title">▌等级分布</text>
+    <line x1="30" y1="70" x2="390" y2="70" stroke="#1f5878" stroke-width="0.5" opacity="0.3"/>
+
+    <!-- Horizontal stacked bar -->
+    <text x="40" y="90" fill="#555" font-size="9">A (9)</text>
+    <rect x="70" y="80" width="5" height="12" rx="2" fill="#27ae60"/>
+
+    <text x="40" y="108" fill="#555" font-size="9">B (575)</text>
+    <rect x="70" y="98" width="295" height="12" rx="2" fill="#4a9bb5"/>
+
+    <text x="40" y="126" fill="#555" font-size="9">C (148)</text>
+    <rect x="70" y="116" width="76" height="12" rx="2" fill="#e67e22"/>
+
+    <text x="40" y="144" fill="#555" font-size="9">D (12)</text>
+    <rect x="70" y="134" width="6" height="12" rx="2" fill="#888"/>
+
+    <!-- Percentage labels -->
+    <text x="80" y="80" fill="#27ae60" font-size="8">1.2%</text>
+    <text x="370" y="107" fill="#4a9bb5" font-size="8">78.6%</text>
+    <text x="150" y="125" fill="#e67e22" font-size="8">20.2%</text>
+
+    <!-- ==================== Hierarchy 深度 ==================== -->
+    <text x="30" y="175" class="section-title">▌层次深度分布</text>
+    <line x1="30" y1="180" x2="390" y2="180" stroke="#1f5878" stroke-width="0.5" opacity="0.3"/>
+
+    <!-- Visual mini tree -->
+    <!-- 深度 0 -->
+    <circle cx="60" cy="215" r="16" fill="#1f5878" opacity="0.2" stroke="#1f5878" stroke-width="1"/>
+    <text x="60" y="219" text-anchor="middle" fill="#1f5878" font-size="9" font-weight="bold">29</text>
+    <text x="60" y="240" text-anchor="middle" fill="#555" font-size="7">深度 0</text>
+    <text x="60" y="250" text-anchor="middle" fill="#888" font-size="6">13 已接受</text>
+
+    <!-- Lines to 深度 1 -->
+    <line x1="76" y1="215" x2="130" y2="215" stroke="#ccc" stroke-width="0.8"/>
+    <line x1="76" y1="215" x2="130" y2="235" stroke="#ccc" stroke-width="0.8"/>
+    <line x1="76" y1="215" x2="130" y2="195" stroke="#ccc" stroke-width="0.8"/>
+
+    <!-- 深度 1 (3 representative 节点) -->
+    <circle cx="150" cy="195" r="14" fill="#2c6e8a" opacity="0.2" stroke="#2c6e8a" stroke-width="1"/>
+    <text x="150" y="199" text-anchor="middle" fill="#2c6e8a" font-size="8">56</text>
+
+    <circle cx="150" cy="215" r="14" fill="#2c6e8a" opacity="0.2" stroke="#2c6e8a" stroke-width="1"/>
+    <text x="150" y="219" text-anchor="middle" fill="#2c6e8a" font-size="8">57</text>
+
+    <circle cx="150" cy="235" r="14" fill="#2c6e8a" opacity="0.2" stroke="#2c6e8a" stroke-width="1"/>
+    <text x="150" y="239" text-anchor="middle" fill="#2c6e8a" font-size="8">56</text>
+
+    <!-- Ellipsis -->
+    <text x="180" y="220" fill="#aaa" font-size="8">...</text>
+    <text x="190" y="220" fill="#888" font-size="7">169 节点</text>
+    <text x="190" y="232" fill="#888" font-size="6">26 已接受</text>
+
+    <!-- Lines to 深度 2 -->
+    <line x1="164" y1="195" x2="220" y2="200" stroke="#ccc" stroke-width="0.5"/>
+    <line x1="164" y1="195" x2="220" y2="215" stroke="#ccc" stroke-width="0.5"/>
+    <line x1="164" y1="215" x2="240" y2="220" stroke="#ccc" stroke-width="0.5"/>
+
+    <!-- 深度 2 -->
+    <circle cx="240" cy="200" r="8" fill="#4a9bb5" opacity="0.15" stroke="#4a9bb5" stroke-width="0.8"/>
+    <circle cx="240" cy="215" r="8" fill="#4a9bb5" opacity="0.15" stroke="#4a9bb5" stroke-width="0.8"/>
+    <circle cx="260" cy="218" r="8" fill="#4a9bb5" opacity="0.15" stroke="#4a9bb5" stroke-width="0.8"/>
+
+    <text x="285" y="210" fill="#888" font-size="7">546 叶子 节点</text>
+    <text x="285" y="222" fill="#888" font-size="6">(全部自动接受)</text>
+
+    <!-- ==================== Domain 覆盖率 ==================== -->
+    <text x="30" y="290" class="section-title">▌主要领域分类</text>
+    <line x1="30" y1="295" x2="390" y2="295" stroke="#1f5878" stroke-width="0.5" opacity="0.3"/>
+
+    <!-- Horizontal bar chart of categories -->
+    <!-- Just showing a few representative categories -->
+    <text x="40" y="315" fill="#555" font-size="8">体育</text>
+    <rect x="80" y="308" width="120" height="10" rx="2" fill="#1f5878" opacity="0.7"/>
+
+    <text x="40" y="333" fill="#555" font-size="8">政治</text>
+    <rect x="80" y="326" width="95" height="10" rx="2" fill="#2c6e8a" opacity="0.7"/>
+
+    <text x="40" y="351" fill="#555" font-size="8">商业</text>
+    <rect x="80" y="344" width="80" height="10" rx="2" fill="#4a9bb5" opacity="0.7"/>
+
+    <text x="40" y="369" fill="#555" font-size="8">国际</text>
+    <rect x="80" y="362" width="70" height="10" rx="2" fill="#27ae60" opacity="0.7"/>
+
+    <text x="40" y="387" fill="#555" font-size="8">娱乐</text>
+    <rect x="80" y="380" width="60" height="10" rx="2" fill="#e67e22" opacity="0.7"/>
+
+    <text x="40" y="405" fill="#555" font-size="8">科技</text>
+    <rect x="80" y="398" width="50" height="10" rx="2" fill="#888" opacity="0.5"/>
+
+    <text x="40" y="423" fill="#555" font-size="8">健康</text>
+    <rect x="80" y="416" width="40" height="10" rx="2" fill="#888" opacity="0.5"/>
+
+    <!-- 覆盖率 note -->
+    <text x="210" y="440" fill="#888" font-size="7">类别反映ABC News报道分布</text>
+  </g>
+</svg>
