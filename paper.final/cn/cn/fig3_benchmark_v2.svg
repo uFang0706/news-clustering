@@ -1,0 +1,269 @@
+<svg width="800" height="500" viewBox="0 0 800 500" xmlns="http://www.w3.org/2000/svg">
+  <defs>
+    <linearGradient id="gbar1" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0%" stop-color="#1f5878"/>
+      <stop offset="100%" stop-color="#2c6e8a"/>
+    </linearGradient>
+    <linearGradient id="gbar2" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0%" stop-color="#4a9bb5"/>
+      <stop offset="100%" stop-color="#2c6e8a"/>
+    </linearGradient>
+    <linearGradient id="gbar3" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0%" stop-color="#e67e22"/>
+      <stop offset="100%" stop-color="#d35400"/>
+    </linearGradient>
+    <linearGradient id="gbar4" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0%" stop-color="#27ae60"/>
+      <stop offset="100%" stop-color="#1e8449"/>
+    </linearGradient>
+    <pattern id="hatch1" patternUnits="userSpaceOnUse" width="4" height="4">
+      <path d="M-1,1 l2,-2 M0,4 l4,-4 M3,5 l2,-2" stroke="#ffffff" stroke-width="0.5" opacity="0.3"/>
+    </pattern>
+  </defs>
+
+  <style>
+    text { font-family: 'DejaVu Sans', 'Arial', sans-serif; }
+    .title { fill: #1a1a2e; font-size: 14px; font-weight: bold; }
+    .subtitle { fill: #555; font-size: 10px; }
+    .axis-label { fill: #333; font-size: 10px; }
+    .tick-label { fill: #555; font-size: 8px; }
+    .bar-label { fill: #fff; font-size: 7px; font-weight: bold; }
+    .legend-text { fill: #333; font-size: 9px; }
+    .method-label { fill: #333; font-size: 8px; }
+  </style>
+
+  <rect width="800" height="500" fill="#ffffff" rx="4"/>
+
+  <!-- Title -->
+  <text x="400" y="24" text-anchor="middle" class="title">图3. 定量基准：五种聚类方法 × 四项指标</text>
+  <text x="400" y="40" text-anchor="middle" class="subtitle">ABC News数据集10,000条标题子集。所有方法统一为50个聚类。</text>
+
+  <!-- Grid definitions -->
+  <!-- We have 4 metric panels: Silhouette, CH, DB, 连贯性 -->
+  <!-- Panel widths: ~180px each with 20px gap -->
+
+  <!-- ============ Panel 1: Silhouette ============ -->
+  <g transform="translate(0,0)">
+    <text x="95" y="60" text-anchor="middle" class="axis-label" font-weight="bold">Silhouette ↑</text>
+    <line x1="20" y1="72" x2="20" y2="310" stroke="#ccc" stroke-width="1"/>
+    <line x1="20" y1="310" x2="170" y2="310" stroke="#ccc" stroke-width="1"/>
+
+    <!-- Gridlines -->
+    <line x1="20" y1="310" x2="170" y2="310" stroke="#eee" stroke-width="0.5"/>
+    <line x1="20" y1="250" x2="170" y2="250" stroke="#eee" stroke-width="0.5"/>
+    <line x1="20" y1="191" x2="170" y2="191" stroke="#eee" stroke-width="0.5"/>
+    <line x1="20" y1="131" x2="170" y2="131" stroke="#eee" stroke-width="0.5"/>
+    <line x1="20" y1="72" x2="170" y2="72" stroke="#eee" stroke-width="0.5"/>
+
+    <!-- Y-axis labels (0 to 0.25) -->
+    <text x="16" y="313" text-anchor="end" class="tick-label">0.00</text>
+    <text x="16" y="252" text-anchor="end" class="tick-label">0.05</text>
+    <text x="16" y="193" text-anchor="end" class="tick-label">0.10</text>
+    <text x="16" y="134" text-anchor="end" class="tick-label">0.15</text>
+    <text x="16" y="74" text-anchor="end" class="tick-label">0.20</text>
+
+    <!-- Bar data: Silhouette values (scaled: 0→310, 0.25→72, range=238) -->
+    <!-- PCA(50)+GMM: 0.18 -->
+    <rect x="26" y="131.4" width="22" height="178.6" rx="2" fill="url(#gbar1)" opacity="0.9"/>
+    <text x="37" y="128.4" text-anchor="middle" class="bar-label">0.18</text>
+    <!-- mpnet+PCA(200)+GMM: 0.22 -->
+    <rect x="50" y="96.4" width="22" height="213.6" rx="2" fill="url(#gbar2)" opacity="0.9"/>
+    <text x="61" y="93.4" text-anchor="middle" class="bar-label">0.22</text>
+    <!-- GSDMM: 0.08 -->
+    <rect x="74" y="233.8" width="22" height="76.2" rx="2" fill="url(#gbar3)" opacity="0.9"/>
+    <text x="85" y="230.8" text-anchor="middle" class="bar-label">0.08</text>
+    <!-- TopiCLEAR: 0.20 -->
+    <rect x="98" y="119.6" width="22" height="190.4" rx="2" fill="url(#gbar4)" opacity="0.9"/>
+    <text x="109" y="116.6" text-anchor="middle" class="bar-label">0.20</text>
+    <!-- UMAP(50)+GMM: 0.15 -->
+    <rect x="122" y="167.0" width="22" height="143.0" rx="2" fill="url(#gbar1)" opacity="0.9"/>
+    <text x="133" y="164.0" text-anchor="middle" class="bar-label">0.15</text>
+    <!-- Fusion 流水线: 0.21 -->
+    <rect x="146" y="108.2" width="22" height="201.8" rx="2" fill="url(#gbar2)" opacity="0.9"/>
+    <text x="157" y="105.2" text-anchor="middle" class="bar-label">0.21</text>
+
+    <!-- X labels (rotated) -->
+    <text x="37" y="325" text-anchor="end" class="method-label" transform="rotate(-60,37,325)">PCA+GMM</text>
+    <text x="61" y="325" text-anchor="end" class="method-label" transform="rotate(-60,61,325)">mpnet+GMM</text>
+    <text x="85" y="325" text-anchor="end" class="method-label" transform="rotate(-60,85,325)">GSDMM</text>
+    <text x="109" y="325" text-anchor="end" class="method-label" transform="rotate(-60,109,325)">TopiCLEAR</text>
+    <text x="133" y="325" text-anchor="end" class="method-label" transform="rotate(-60,133,325)">UMAP+GMM</text>
+    <text x="157" y="325" text-anchor="end" class="method-label" transform="rotate(-60,157,325)">Fusion</text>
+  </g>
+
+  <!-- ============ Panel 2: CH 分数 ============ -->
+  <g transform="translate(190,0)">
+    <text x="95" y="60" text-anchor="middle" class="axis-label" font-weight="bold">CH 分数 ↑</text>
+    <line x1="20" y1="72" x2="20" y2="310" stroke="#ccc" stroke-width="1"/>
+    <line x1="20" y1="310" x2="170" y2="310" stroke="#ccc" stroke-width="1"/>
+
+    <!-- Gridlines -->
+    <line x1="20" y1="310" x2="170" y2="310" stroke="#eee" stroke-width="0.5"/>
+    <line x1="20" y1="260" x2="170" y2="260" stroke="#eee" stroke-width="0.5"/>
+    <line x1="20" y1="210" x2="170" y2="210" stroke="#eee" stroke-width="0.5"/>
+    <line x1="20" y1="160" x2="170" y2="160" stroke="#eee" stroke-width="0.5"/>
+    <line x1="20" y1="110" x2="170" y2="110" stroke="#eee" stroke-width="0.5"/>
+    <line x1="20" y1="72" x2="170" y2="72" stroke="#eee" stroke-width="0.5"/>
+
+    <!-- Y-axis labels (200 to 1000) -->
+    <text x="16" y="313" text-anchor="end" class="tick-label">200</text>
+    <text x="16" y="262" text-anchor="end" class="tick-label">400</text>
+    <text x="16" y="212" text-anchor="end" class="tick-label">600</text>
+    <text x="16" y="162" text-anchor="end" class="tick-label">800</text>
+    <text x="16" y="112" text-anchor="end" class="tick-label">1000</text>
+
+    <!-- Bar data: CH (range 200→1000 = 310→72, so 200=310, 1000=72, range=238 for 800) -->
+    <!-- PCA(50)+GMM: 850 -->
+    <rect x="26" y="131.4" width="22" height="178.6" rx="2" fill="url(#gbar1)" opacity="0.9"/>
+    <text x="37" y="128.4" text-anchor="middle" class="bar-label">850</text>
+    <!-- mpnet+PCA(200)+GMM: 920 -->
+    <rect x="50" y="101.6" width="22" height="208.4" rx="2" fill="url(#gbar2)" opacity="0.9"/>
+    <text x="61" y="98.6" text-anchor="middle" class="bar-label">920</text>
+    <!-- GSDMM: 310 -->
+    <rect x="74" y="286.3" width="22" height="23.7" rx="2" fill="url(#gbar3)" opacity="0.9"/>
+    <text x="85" y="283.3" text-anchor="middle" class="bar-label">310</text>
+    <!-- TopiCLEAR: 880 -->
+    <rect x="98" y="119.6" width="22" height="190.4" rx="2" fill="url(#gbar4)" opacity="0.9"/>
+    <text x="109" y="116.6" text-anchor="middle" class="bar-label">880</text>
+    <!-- UMAP(50)+GMM: 720 -->
+    <rect x="122" y="178.6" width="22" height="131.4" rx="2" fill="url(#gbar1)" opacity="0.9"/>
+    <text x="133" y="175.6" text-anchor="middle" class="bar-label">720</text>
+    <!-- Fusion 流水线: 900 -->
+    <rect x="146" y="112.0" width="22" height="198.0" rx="2" fill="url(#gbar2)" opacity="0.9"/>
+    <text x="157" y="109.0" text-anchor="middle" class="bar-label">900</text>
+
+    <!-- X labels -->
+    <text x="37" y="325" text-anchor="end" class="method-label" transform="rotate(-60,37,325)">PCA+GMM</text>
+    <text x="61" y="325" text-anchor="end" class="method-label" transform="rotate(-60,61,325)">mpnet+GMM</text>
+    <text x="85" y="325" text-anchor="end" class="method-label" transform="rotate(-60,85,325)">GSDMM</text>
+    <text x="109" y="325" text-anchor="end" class="method-label" transform="rotate(-60,109,325)">TopiCLEAR</text>
+    <text x="133" y="325" text-anchor="end" class="method-label" transform="rotate(-60,133,325)">UMAP+GMM</text>
+    <text x="157" y="325" text-anchor="end" class="method-label" transform="rotate(-60,157,325)">Fusion</text>
+  </g>
+
+  <!-- ============ Panel 3: Davies-Bouldin ============ -->
+  <g transform="translate(380,0)">
+    <text x="95" y="60" text-anchor="middle" class="axis-label" font-weight="bold">DB 指数 ↓</text>
+    <line x1="20" y1="72" x2="20" y2="310" stroke="#ccc" stroke-width="1"/>
+    <line x1="20" y1="310" x2="170" y2="310" stroke="#ccc" stroke-width="1"/>
+
+    <!-- Gridlines (reversed: lower is better) -->
+    <line x1="20" y1="310" x2="170" y2="310" stroke="#eee" stroke-width="0.5"/>
+    <line x1="20" y1="262" x2="170" y2="262" stroke="#eee" stroke-width="0.5"/>
+    <line x1="20" y1="214" x2="170" y2="214" stroke="#eee" stroke-width="0.5"/>
+    <line x1="20" y1="167" x2="170" y2="167" stroke="#eee" stroke-width="0.5"/>
+    <line x1="20" y1="119" x2="170" y2="119" stroke="#eee" stroke-width="0.5"/>
+    <line x1="20" y1="72" x2="170" y2="72" stroke="#eee" stroke-width="0.5"/>
+
+    <!-- Y-axis labels (3.5 to 1.0, reversed: 3.5 at bottom, 1.0 at top) -->
+    <text x="16" y="313" text-anchor="end" class="tick-label">3.5</text>
+    <text x="16" y="262" text-anchor="end" class="tick-label">3.0</text>
+    <text x="16" y="214" text-anchor="end" class="tick-label">2.5</text>
+    <text x="16" y="167" text-anchor="end" class="tick-label">2.0</text>
+    <text x="16" y="119" text-anchor="end" class="tick-label">1.5</text>
+    <text x="16" y="74" text-anchor="end" class="tick-label">1.0</text>
+
+    <!-- Bar data: DB (lower is better, so 1.0=72, 3.5=310, range 2.5=238) -->
+    <!-- PCA(50)+GMM: 1.8 -->
+    <rect x="26" y="180.0" width="22" height="130.0" rx="2" fill="url(#gbar1)" opacity="0.9"/>
+    <text x="37" y="177.0" text-anchor="middle" class="bar-label">1.8</text>
+    <!-- mpnet+PCA(200)+GMM: 1.5 -->
+    <rect x="50" y="130.0" width="22" height="180.0" rx="2" fill="url(#gbar2)" opacity="0.9"/>
+    <text x="61" y="127.0" text-anchor="middle" class="bar-label">1.5</text>
+    <!-- GSDMM: 2.9 -->
+    <rect x="74" y="262.4" width="22" height="47.6" rx="2" fill="url(#gbar3)" opacity="0.9"/>
+    <text x="85" y="259.4" text-anchor="middle" class="bar-label">2.9</text>
+    <!-- TopiCLEAR: 1.6 -->
+    <rect x="98" y="155.0" width="22" height="155.0" rx="2" fill="url(#gbar4)" opacity="0.9"/>
+    <text x="109" y="152.0" text-anchor="middle" class="bar-label">1.6</text>
+    <!-- UMAP(50)+GMM: 2.1 -->
+    <rect x="122" y="206.6" width="22" height="103.4" rx="2" fill="url(#gbar1)" opacity="0.9"/>
+    <text x="133" y="203.6" text-anchor="middle" class="bar-label">2.1</text>
+    <!-- Fusion 流水线: 1.5 -->
+    <rect x="146" y="130.0" width="22" height="180.0" rx="2" fill="url(#gbar2)" opacity="0.9"/>
+    <text x="157" y="127.0" text-anchor="middle" class="bar-label">1.5</text>
+
+    <!-- X labels -->
+    <text x="37" y="325" text-anchor="end" class="method-label" transform="rotate(-60,37,325)">PCA+GMM</text>
+    <text x="61" y="325" text-anchor="end" class="method-label" transform="rotate(-60,61,325)">mpnet+GMM</text>
+    <text x="85" y="325" text-anchor="end" class="method-label" transform="rotate(-60,85,325)">GSDMM</text>
+    <text x="109" y="325" text-anchor="end" class="method-label" transform="rotate(-60,109,325)">TopiCLEAR</text>
+    <text x="133" y="325" text-anchor="end" class="method-label" transform="rotate(-60,133,325)">UMAP+GMM</text>
+    <text x="157" y="325" text-anchor="end" class="method-label" transform="rotate(-60,157,325)">Fusion</text>
+  </g>
+
+  <!-- ============ Panel 4: Topic 连贯性 ============ -->
+  <g transform="translate(570,0)">
+    <text x="95" y="60" text-anchor="middle" class="axis-label" font-weight="bold">Topic 连贯性 ↑</text>
+    <line x1="20" y1="72" x2="20" y2="310" stroke="#ccc" stroke-width="1"/>
+    <line x1="20" y1="310" x2="170" y2="310" stroke="#ccc" stroke-width="1"/>
+
+    <!-- Gridlines -->
+    <line x1="20" y1="310" x2="170" y2="310" stroke="#eee" stroke-width="0.5"/>
+    <line x1="20" y1="262" x2="170" y2="262" stroke="#eee" stroke-width="0.5"/>
+    <line x1="20" y1="214" x2="170" y2="214" stroke="#eee" stroke-width="0.5"/>
+    <line x1="20" y1="167" x2="170" y2="167" stroke="#eee" stroke-width="0.5"/>
+    <line x1="20" y1="119" x2="170" y2="119" stroke="#eee" stroke-width="0.5"/>
+    <line x1="20" y1="72" x2="170" y2="72" stroke="#eee" stroke-width="0.5"/>
+
+    <!-- Y-axis labels (0.00 to 0.06) -->
+    <text x="16" y="313" text-anchor="end" class="tick-label">0.00</text>
+    <text x="16" y="262" text-anchor="end" class="tick-label">0.01</text>
+    <text x="16" y="214" text-anchor="end" class="tick-label">0.02</text>
+    <text x="16" y="167" text-anchor="end" class="tick-label">0.03</text>
+    <text x="16" y="119" text-anchor="end" class="tick-label">0.04</text>
+    <text x="16" y="74" text-anchor="end" class="tick-label">0.05</text>
+
+    <!-- Bar data: 连贯性 (range 0→0.06 = 310→72, range=238 for 0.06) -->
+    <!-- PCA(50)+GMM: 0.042 -->
+    <rect x="26" y="119.6" width="22" height="190.4" rx="2" fill="url(#gbar1)" opacity="0.9"/>
+    <text x="37" y="116.6" text-anchor="middle" class="bar-label">0.042</text>
+    <!-- mpnet+PCA(200)+GMM: 0.055 -->
+    <rect x="50" y="86.0" width="22" height="224.0" rx="2" fill="url(#gbar2)" opacity="0.9"/>
+    <text x="61" y="83.0" text-anchor="middle" class="bar-label">0.055</text>
+    <!-- GSDMM: 0.038 -->
+    <rect x="74" y="139.2" width="22" height="170.8" rx="2" fill="url(#gbar3)" opacity="0.9"/>
+    <text x="85" y="136.2" text-anchor="middle" class="bar-label">0.038</text>
+    <!-- TopiCLEAR: 0.048 -->
+    <rect x="98" y="98.0" width="22" height="212.0" rx="2" fill="url(#gbar4)" opacity="0.9"/>
+    <text x="109" y="95.0" text-anchor="middle" class="bar-label">0.048</text>
+    <!-- UMAP(50)+GMM: 0.040 -->
+    <rect x="122" y="127.0" width="22" height="183.0" rx="2" fill="url(#gbar1)" opacity="0.9"/>
+    <text x="133" y="124.0" text-anchor="middle" class="bar-label">0.040</text>
+    <!-- Fusion 流水线: 0.050 -->
+    <rect x="146" y="86.0" width="22" height="224.0" rx="2" fill="url(#gbar2)" opacity="0.9"/>
+    <text x="157" y="83.0" text-anchor="middle" class="bar-label">0.050</text>
+
+    <!-- X labels -->
+    <text x="37" y="325" text-anchor="end" class="method-label" transform="rotate(-60,37,325)">PCA+GMM</text>
+    <text x="61" y="325" text-anchor="end" class="method-label" transform="rotate(-60,61,325)">mpnet+GMM</text>
+    <text x="85" y="325" text-anchor="end" class="method-label" transform="rotate(-60,85,325)">GSDMM</text>
+    <text x="109" y="325" text-anchor="end" class="method-label" transform="rotate(-60,109,325)">TopiCLEAR</text>
+    <text x="133" y="325" text-anchor="end" class="method-label" transform="rotate(-60,133,325)">UMAP+GMM</text>
+    <text x="157" y="325" text-anchor="end" class="method-label" transform="rotate(-60,157,325)">Fusion</text>
+  </g>
+
+  <!-- Legend -->
+  <g transform="translate(30, 400)">
+    <rect x="0" y="0" width="12" height="12" rx="2" fill="url(#gbar1)"/>
+    <text x="16" y="10" class="legend-text">PCA(50)+GMM</text>
+    <rect x="150" y="0" width="12" height="12" rx="2" fill="url(#gbar2)"/>
+    <text x="166" y="10" class="legend-text">mpnet+PCA(200)+GMM</text>
+    <rect x="360" y="0" width="12" height="12" rx="2" fill="url(#gbar3)"/>
+    <text x="376" y="10" class="legend-text">GSDMM</text>
+  </g>
+  <g transform="translate(30, 418)">
+    <rect x="0" y="0" width="12" height="12" rx="2" fill="url(#gbar4)"/>
+    <text x="16" y="10" class="legend-text">TopiCLEAR</text>
+    <rect x="119" y="0" width="12" height="12" rx="2" fill="url(#gbar1)"/>
+    <text x="135" y="10" class="legend-text">UMAP(50)+GMM</text>
+    <rect x="300" y="0" width="12" height="12" rx="2" fill="url(#gbar2)"/>
+    <text x="316" y="10" class="legend-text">Fusion 流水线</text>
+  </g>
+
+  <!-- Callout box for Our 方法 -->
+  <rect x="30" y="450" width="740" height="40" rx="4" fill="#fff8e1" stroke="#e67e22" stroke-width="1.5" stroke-dasharray="4,2"/>
+  <text x="40" y="467" fill="#d35400" font-size="9" font-weight="bold">Our 方法 (Leiden+FSM):</text>
+  <text x="195" y="467" fill="#555" font-size="9">Silhouette = N/A (585 clusters ≠ 50 baseline)</text>
+  <text x="195" y="482" fill="#555" font-size="9">Coverage = 94.3% · Topics = 585 · Hierarchy = 3-level · Outliers = 0</text>
+</svg>

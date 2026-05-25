@@ -1,0 +1,190 @@
+<svg width="800" height="500" viewBox="0 0 800 500" xmlns="http://www.w3.org/2000/svg">
+  <defs>
+    <linearGradient id="bg" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0%" stop-color="#f8f9fa"/>
+      <stop offset="100%" stop-color="#ffffff"/>
+    </linearGradient>
+  </defs>
+  <style>
+    text { font-family: 'DejaVu Sans', 'Arial', sans-serif; }
+    .title { fill: #1a1a2e; font-size: 14px; font-weight: bold; }
+    .subtitle { fill: #555; font-size: 9px; }
+    .axis-label { fill: #333; font-size: 10px; }
+    .tick-label { fill: #555; font-size: 8px; }
+    .exp-label { fill: #333; font-size: 9px; font-weight: bold; }
+    .legend-text { fill: #333; font-size: 9px; }
+  </style>
+
+  <rect width="800" height="500" fill="url(#bg)" rx="4"/>
+
+  <!-- Title -->
+  <text x="400" y="24" text-anchor="middle" class="title">图2. 研究演进：13组实验的覆盖率与大模型成本</text>
+  <text x="400" y="40" text-anchor="middle" class="subtitle">实验A至K及最终流水线。大模型调用仅显示使用大模型评估的轮次。</text>
+
+  <!-- Plot area -->
+  <!-- Left Y: 覆盖率 % (0 to 100) -->
+  <!-- Right Y: 大模型调用次数 -->
+  <!-- X: 13 experiments -->
+
+  <rect x="70" y="55" width="660" height="370" fill="none" stroke="#ddd" stroke-width="1" rx="2"/>
+
+  <!-- Gridlines (horizontal, every 20%) -->
+  <line x1="70" y1="425" x2="730" y2="425" stroke="#eee" stroke-width="0.5"/>
+  <text x="64" y="428" text-anchor="end" class="tick-label">0%</text>
+
+  <line x1="70" y1="351" x2="730" y2="351" stroke="#eee" stroke-width="0.5"/>
+  <text x="64" y="354" text-anchor="end" class="tick-label">20%</text>
+
+  <line x1="70" y1="277" x2="730" y2="277" stroke="#eee" stroke-width="0.5"/>
+  <text x="64" y="280" text-anchor="end" class="tick-label">40%</text>
+
+  <line x1="70" y1="203" x2="730" y2="203" stroke="#eee" stroke-width="0.5"/>
+  <text x="64" y="206" text-anchor="end" class="tick-label">60%</text>
+
+  <line x1="70" y1="129" x2="730" y2="129" stroke="#eee" stroke-width="0.5"/>
+  <text x="64" y="132" text-anchor="end" class="tick-label">80%</text>
+
+  <line x1="70" y1="55" x2="730" y2="55" stroke="#eee" stroke-width="0.5"/>
+  <text x="64" y="58" text-anchor="end" class="tick-label">100%</text>
+
+  <!-- Left Y-axis -->
+  <line x1="70" y1="55" x2="70" y2="425" stroke="#1f5878" stroke-width="1.5"/>
+  <text x="25" y="240" text-anchor="middle" class="axis-label" fill="#1f5878" transform="rotate(-90,25,240)">标题覆盖率 (%)</text>
+
+  <!-- Right Y-axis: 大模型调用次数 -->
+  <line x1="730" y1="55" x2="730" y2="425" stroke="#e67e22" stroke-width="1.5" stroke-dasharray="4,2"/>
+
+  <!-- Y-axis right labels -->
+  <text x="736" y="428" text-anchor="start" class="tick-label" fill="#e67e22">0</text>
+  <text x="736" y="58" text-anchor="start" class="tick-label" fill="#e67e22">800</text>
+  <text x="736" y="203" text-anchor="start" class="tick-label" fill="#e67e22">400</text>
+
+  <!-- Right title -->
+  <text x="772" y="240" text-anchor="middle" class="axis-label" fill="#e67e22" transform="rotate(90,772,240)">大模型调用次数</text>
+
+  <!-- X-axis -->
+  <line x1="70" y1="425" x2="730" y2="425" stroke="#333" stroke-width="1.5"/>
+
+  <!-- 实验 data points -->
+  <!-- x positions: evenly spaced across 660px from x=80 to x=720 -->
+  <!-- 13 experiments: A, B, C, D, E, F, G, H, I, I.2, J, K, 最终 -->
+  <!-- Spacing: 660/12 = 55px per slot -->
+  <!-- x = 80 + i * 55 for i=0..12 -->
+
+  <!-- 覆盖率 data (estimated from paper context): -->
+  <!-- A: BERTopic baseline → 65.0% -->
+  <!-- B: BERTopic tuned → 82.5% -->
+  <!-- C: TF-IDF+K-Means → 78.0% -->
+  <!-- D: GSDMM → 76.5% -->
+  <!-- E: TopiCLEAR → 88.0% -->
+  <!-- F: UMAP+HDBSCAN → 84.0% -->
+  <!-- G: Hierarchical → 79.0% -->
+  <!-- H: Text Aug → 85.0% -->
+  <!-- I: Consensus → 86.0% -->
+  <!-- I.2: Refined → 89.0% -->
+  <!-- J: Leiden (γ=1.0) → 97.8% -->
+  <!-- K: Leiden+Rules → 94.3% -->
+  <!-- 最终: Pipeline → 94.3% -->
+
+  <!-- 大模型调用次数: -->
+  <!-- A-I.2: 0 (no LLM used) -->
+  <!-- J: 0 (Leiden only) -->
+  <!-- K: ~732 (no optimizations) -->
+  <!-- 最终: 290 (all optimizations) -->
+
+  <!-- 覆盖率: y=425 - (cov%/100)*370 -->
+  <!-- So 0%→425, 100%→55 -->
+
+  <!-- Y-coverage for each: -->
+  <!-- A(65%): y=184.5, B(82.5%): y=119.8, C(78%): y=136.4, D(76.5%): y=142.0 -->
+  <!-- E(88%): y=99.4, F(84%): y=114.2, G(79%): y=132.7, H(85%): y=110.5 -->
+  <!-- I(86%): y=106.8, I.2(89%): y=95.7, J(97.8%): y=63.1, K(94.3%): y=76.1, 最终(94.3%): y=76.1 -->
+
+  <!-- 大模型调用次数: y=425 - (calls/800)*370 -->
+  <!-- 0→425, 732→86.4, 290→290.9 -->
+
+  <!-- 覆盖率 line (blue) -->
+  <polyline points="80,184.5 135,119.8 190,136.4 245,142.0 300,99.4 355,114.2 410,132.7 465,110.5 520,106.8 575,95.7 630,63.1 685,76.1 730,76.1" stroke="#1f5878" stroke-width="2.5" fill="none"/>
+
+  <!-- 覆盖率 markers -->
+  <circle cx="80" cy="184.5" r="5" fill="#1f5878"/>
+  <circle cx="135" cy="119.8" r="5" fill="#1f5878"/>
+  <circle cx="190" cy="136.4" r="5" fill="#1f5878"/>
+  <circle cx="245" cy="142.0" r="5" fill="#1f5878"/>
+  <circle cx="300" cy="99.4" r="5" fill="#1f5878"/>
+  <circle cx="355" cy="114.2" r="5" fill="#1f5878"/>
+  <circle cx="410" cy="132.7" r="5" fill="#1f5878"/>
+  <circle cx="465" cy="110.5" r="5" fill="#1f5878"/>
+  <circle cx="520" cy="106.8" r="5" fill="#1f5878"/>
+  <circle cx="575" cy="95.7" r="5" fill="#1f5878"/>
+  <circle cx="630" cy="63.1" r="5" fill="#1f5878"/>
+  <circle cx="685" cy="76.1" r="5" fill="#1f5878"/>
+  <circle cx="730" cy="76.1" r="5" fill="#1f5878"/>
+
+  <!-- 覆盖率 value labels -->
+  <text x="80" y="178.5" text-anchor="middle" fill="#1f5878" font-size="7">65.0</text>
+  <text x="135" y="113.8" text-anchor="middle" fill="#1f5878" font-size="7">82.5</text>
+  <text x="190" y="130.4" text-anchor="middle" fill="#1f5878" font-size="7">78.0</text>
+  <text x="245" y="136.0" text-anchor="middle" fill="#1f5878" font-size="7">76.5</text>
+  <text x="300" y="93.4" text-anchor="middle" fill="#1f5878" font-size="7">88.0</text>
+  <text x="355" y="108.2" text-anchor="middle" fill="#1f5878" font-size="7">84.0</text>
+  <text x="410" y="126.7" text-anchor="middle" fill="#1f5878" font-size="7">79.0</text>
+  <text x="465" y="104.5" text-anchor="middle" fill="#1f5878" font-size="7">85.0</text>
+  <text x="520" y="100.8" text-anchor="middle" fill="#1f5878" font-size="7">86.0</text>
+  <text x="575" y="89.7" text-anchor="middle" fill="#1f5878" font-size="7">89.0</text>
+  <text x="630" y="57.1" text-anchor="middle" fill="#1f5878" font-size="7">97.8</text>
+  <text x="685" y="70.1" text-anchor="middle" fill="#1f5878" font-size="7">94.3</text>
+  <text x="730" y="70.1" text-anchor="middle" fill="#1f5878" font-size="7">94.3</text>
+
+  <!-- 大模型调用次数 line (orange, only visible for K and 最终) -->
+  <!-- K: 732 calls → y=86.4, 最终: 290 calls → y=290.9 -->
+  <!-- But we also show that other experiments have 0 LLM calls -->
+  <polyline points="80,425 135,425 190,425 245,425 300,425 355,425 410,425 465,425 520,425 575,425 630,425 630,86.4 685,290.9 730,290.9" stroke="#e67e22" stroke-width="2.5" fill="none" stroke-dasharray="8,3"/>
+
+  <!-- LLM markers -->
+  <circle cx="630" cy="86.4" r="4.5" fill="#e67e22"/>
+  <text x="630" y="80.4" text-anchor="middle" fill="#e67e22" font-size="7">732</text>
+  <circle cx="685" cy="290.9" r="4.5" fill="#e67e22"/>
+  <text x="685" y="284.9" text-anchor="middle" fill="#e67e22" font-size="7">290</text>
+  <circle cx="730" cy="290.9" r="4.5" fill="#e67e22"/>
+  <text x="730" y="284.9" text-anchor="middle" fill="#e67e22" font-size="7">290</text>
+
+  <!-- X experiment labels -->
+  <!-- Position: x = 80 + i * 55 for i=0..12 -->
+  <text x="80" y="440" text-anchor="middle" class="exp-label">A</text>
+  <text x="135" y="440" text-anchor="middle" class="exp-label">B</text>
+  <text x="190" y="440" text-anchor="middle" class="exp-label">C</text>
+  <text x="245" y="440" text-anchor="middle" class="exp-label">D</text>
+  <text x="300" y="440" text-anchor="middle" class="exp-label">E</text>
+  <text x="355" y="440" text-anchor="middle" class="exp-label">F</text>
+  <text x="410" y="440" text-anchor="middle" class="exp-label">G</text>
+  <text x="465" y="440" text-anchor="middle" class="exp-label">H</text>
+  <text x="520" y="440" text-anchor="middle" class="exp-label">I</text>
+  <text x="575" y="440" text-anchor="middle" class="exp-label">I.2</text>
+  <text x="630" y="440" text-anchor="middle" class="exp-label">J</text>
+  <text x="685" y="440" text-anchor="middle" class="exp-label">K</text>
+  <text x="730" y="440" text-anchor="middle" class="exp-label">最终</text>
+
+  <!-- X-axis title -->
+  <text x="400" y="465" text-anchor="middle" class="axis-label">实验</text>
+
+  <!-- Phase labels -->
+  <rect x="72" y="455" width="230" height="16" rx="3" fill="#1f5878" opacity="0.15"/>
+  <text x="187" y="467" text-anchor="middle" fill="#1f5878" font-size="8">探索阶段</text>
+  <rect x="305" y="455" width="185" height="16" rx="3" fill="#27ae60" opacity="0.15"/>
+  <text x="397" y="467" text-anchor="middle" fill="#27ae60" font-size="8">优化阶段</text>
+  <rect x="493" y="455" width="240" height="16" rx="3" fill="#e67e22" opacity="0.15"/>
+  <text x="613" y="467" text-anchor="middle" fill="#e67e22" font-size="8">生产阶段</text>
+
+  <!-- Legend -->
+  <g transform="translate(80, 475)">
+    <line x1="0" y1="0" x2="25" y2="0" stroke="#1f5878" stroke-width="2.5"/>
+    <circle cx="12.5" cy="0" r="4" fill="#1f5878"/>
+    <text x="30" y="4" class="legend-text">覆盖率 (%)</text>
+  </g>
+  <g transform="translate(230, 475)">
+    <line x1="0" y1="0" x2="25" y2="0" stroke="#e67e22" stroke-width="2.5" stroke-dasharray="8,3"/>
+    <circle cx="12.5" cy="0" r="3.5" fill="#e67e22"/>
+    <text x="30" y="4" class="legend-text">大模型调用次数</text>
+  </g>
+</svg>
