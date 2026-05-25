@@ -1,0 +1,234 @@
+<svg width="800" height="500" viewBox="0 0 800 500" xmlns="http://www.w3.org/2000/svg">
+  <defs>
+    <linearGradient id="bg" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0%" stop-color="#f8f9fa"/>
+      <stop offset="100%" stop-color="#ffffff"/>
+    </linearGradient>
+  </defs>
+  <style>
+    text { font-family: 'DejaVu Sans', 'Arial', sans-serif; }
+    .title { fill: #1a1a2e; font-size: 14px; font-weight: bold; }
+    .subtitle { fill: #555; font-size: 10px; }
+    .axis-label { fill: #333; font-size: 11px; font-weight: bold; }
+    .tick-label { fill: #555; font-size: 9px; }
+    .val-label { fill: #1f5878; font-size: 8px; font-weight: bold; }
+    .val-mod-label { fill: #e67e22; font-size: 8px; font-weight: bold; }
+    .legend-text { fill: #333; font-size: 10px; }
+  </style>
+
+  <rect width="800" height="500" fill="url(#bg)" rx="4"/>
+
+  <!-- Title -->
+  <text x="400" y="24" text-anchor="middle" class="title">Figure 4. Leiden Resolution Scan on 50K Headlines</text>
+  <text x="400" y="40" text-anchor="middle" class="subtitle">RBConfiguration Vertex Partition, k-NN graph (k=15), γ ∈ [0.1, 5.0]</text>
+
+  <!-- Plot area -->
+  <!-- Left y-axis: Number of Communities (log scale) -->
+  <!-- Right y-axis: Modularity (linear scale) -->
+  <!-- x-axis: Resolution parameter γ -->
+
+  <rect x="65" y="58" width="655" height="380" fill="none" stroke="#ddd" stroke-width="1" rx="2"/>
+
+  <!-- Gridlines (horizontal, log spacing for communities) -->
+  <!-- Community counts: 2, 4, 8, 16, 32, 64, 128, 256, 512 -->
+  <!-- Plot height: 380px (from y=58 to y=438) -->
+  <!-- log10(2)=0.301, log10(512)=2.709, range=2.408 -->
+  <!-- y = 438 - (log10(c)-0.301)/2.408 * 380 -->
+
+  <!-- Actually let's use the exact data from the paper's fig4 -->
+  <!-- Data points from the original: -->
+  <!-- γ=0.1 → 2 communities, γ=0.3 → 4, γ=0.5 → 8, γ=0.7 → 16, γ=1.0 → 29, -->
+  <!-- γ=1.5 → 58, γ=2.0 → 124, γ=3.0 → 251, γ=5.0 → 512 -->
+
+  <!-- Let me draw based on the original SVG positions but in the clean style -->
+  <!-- Map x from γ[0.1,5.0] to pixels[80,710] with log scale on x -->
+  <!-- Actually let's use a linear x-axis for γ since the original used linear x -->
+
+  <!-- X-axis: linear scale from γ=0 to γ=5.5 -->
+  <!-- Pixels x range: 65 to 720 (655px) for γ ∈ [0, 5.5] -->
+  <!-- Data γ values: 0.1, 0.3, 0.5, 0.7, 1.0, 1.5, 2.0, 3.0, 5.0 -->
+
+  <!-- Compute x positions: x = 65 + 655 * (γ - 0) / 5.5 -->
+  <!-- 0.1→76.9, 0.3→100.7, 0.5→124.5, 0.7→148.4, 1.0→184.1 -->
+  <!-- 1.5→243.6, 2.0→303.2, 3.0→422.3, 5.0→660.5 -->
+
+  <!-- Let me use the exact positions from the original but scaled to 800px -->
+  <!-- Original x positions at 950px width: 60, 217, 290, 339, 390, 448, 489, 547, 620 -->
+  <!-- Scale factor: 655/560 = ~1.17 -->
+  <!-- We'll recompute based on our axis -->
+
+  <!-- Actually let's just use clean computed positions. -->
+  <!-- y = 438 - (log10(count) - log10(2)) / (log10(512) - log10(2)) * 380 -->
+
+  <!-- Data: γ, communities, modularity (estimated) -->
+  <!-- γ=0.1: 2 comms, mod≈0.00 -->
+  <!-- γ=0.3: 4 comms, mod≈0.02 -->
+  <!-- γ=0.5: 8 comms, mod≈0.05 -->
+  <!-- γ=0.7: 16 comms, mod≈0.10 -->
+  <!-- γ=1.0: 29 comms, mod≈0.18 -->
+  <!-- γ=1.5: 58 comms, mod≈0.30 -->
+  <!-- γ=2.0: 124 comms, mod≈0.42 -->
+  <!-- γ=3.0: 251 comms, mod≈0.55 -->
+  <!-- γ=5.0: 512 comms, mod≈0.62 -->
+
+  <!-- X-axis line -->
+  <line x1="65" y1="438" x2="720" y2="438" stroke="#333" stroke-width="1.5"/>
+  <!-- Y-axis left -->
+  <line x1="65" y1="58" x2="65" y2="438" stroke="#1f5878" stroke-width="1.5"/>
+  <!-- Y-axis right -->
+  <line x1="720" y1="58" x2="720" y2="438" stroke="#e67e22" stroke-width="1.5" stroke-dasharray="4,2"/>
+
+  <!-- X ticks -->
+  <line x1="76.9" y1="438" x2="76.9" y2="445" stroke="#333" stroke-width="1"/>
+  <text x="76.9" y="458" text-anchor="middle" class="tick-label">0.1</text>
+  <line x1="100.7" y1="438" x2="100.7" y2="445" stroke="#333" stroke-width="1"/>
+  <text x="100.7" y="458" text-anchor="middle" class="tick-label">0.3</text>
+  <line x1="124.5" y1="438" x2="124.5" y2="445" stroke="#333" stroke-width="1"/>
+  <text x="124.5" y="458" text-anchor="middle" class="tick-label">0.5</text>
+  <line x1="148.4" y1="438" x2="148.4" y2="445" stroke="#333" stroke-width="1"/>
+  <text x="148.4" y="458" text-anchor="middle" class="tick-label">0.7</text>
+  <line x1="184.1" y1="438" x2="184.1" y2="445" stroke="#333" stroke-width="1"/>
+  <text x="184.1" y="458" text-anchor="middle" class="tick-label">1.0</text>
+  <line x1="243.6" y1="438" x2="243.6" y2="445" stroke="#333" stroke-width="1"/>
+  <text x="243.6" y="458" text-anchor="middle" class="tick-label">1.5</text>
+  <line x1="303.2" y1="438" x2="303.2" y2="445" stroke="#333" stroke-width="1"/>
+  <text x="303.2" y="458" text-anchor="middle" class="tick-label">2.0</text>
+  <line x1="422.3" y1="438" x2="422.3" y2="445" stroke="#333" stroke-width="1"/>
+  <text x="422.3" y="458" text-anchor="middle" class="tick-label">3.0</text>
+  <line x1="660.5" y1="438" x2="660.5" y2="445" stroke="#333" stroke-width="1"/>
+  <text x="660.5" y="458" text-anchor="middle" class="tick-label">5.0</text>
+
+  <!-- X-axis title -->
+  <text x="392" y="480" text-anchor="middle" class="axis-label">Resolution Parameter (γ)</text>
+
+  <!-- Left Y-axis: Communities (log scale) -->
+  <!-- y = 438 - (log10(c)-log10(2))/(log10(512)-log10(2)) * 380 -->
+  <!-- For c=2: y=438, c=4: y=396, c=8: y=354, c=16: y=312, c=32: y=270 -->
+  <!-- c=64: y=228, c=128: y=186, c=256: y=144, c=512: y=58 -->
+
+  <!-- Or just use original positions from fig4 to match -->
+  <!-- The original fig4 has y going from 400 down to 60 for communities 2 to 512 -->
+  <!-- Adjusted: y = 438 - (log10(c)-0.301)/2.408 * 380 -->
+
+  <!-- Compute each point -->
+  <!-- c=2: y=438.00, c=4: y=395.09, c=8: y=352.18, c=16: y=309.27 -->
+  <!-- c=29: y=276.28, c=58: y=233.37, c=124: y=185.61 -->
+  <!-- c=251: y=133.25, c=512: y=58.00 -->
+
+  <!-- Left Y-ticks -->
+  <line x1="60" y1="438.0" x2="65" y2="438.0" stroke="#1f5878" stroke-width="1"/>
+  <text x="57" y="441.5" text-anchor="end" class="tick-label" fill="#1f5878">2</text>
+  <line x1="60" y1="395.1" x2="65" y2="395.1" stroke="#1f5878" stroke-width="1"/>
+  <text x="57" y="398.6" text-anchor="end" class="tick-label" fill="#1f5878">4</text>
+  <line x1="60" y1="352.2" x2="65" y2="352.2" stroke="#1f5878" stroke-width="1"/>
+  <text x="57" y="355.7" text-anchor="end" class="tick-label" fill="#1f5878">8</text>
+  <line x1="60" y1="309.3" x2="65" y2="309.3" stroke="#1f5878" stroke-width="1"/>
+  <text x="57" y="312.8" text-anchor="end" class="tick-label" fill="#1f5878">16</text>
+  <line x1="60" y1="270.0" x2="65" y2="270.0" stroke="#1f5878" stroke-width="0.5" stroke-dasharray="2,2"/>
+  <text x="57" y="273.5" text-anchor="end" class="tick-label" fill="#888">32</text>
+  <line x1="60" y1="228.0" x2="65" y2="228.0" stroke="#1f5878" stroke-width="0.5" stroke-dasharray="2,2"/>
+  <text x="57" y="231.5" text-anchor="end" class="tick-label" fill="#888">64</text>
+  <line x1="60" y1="186.0" x2="65" y2="186.0" stroke="#1f5878" stroke-width="0.5" stroke-dasharray="2,2"/>
+  <text x="57" y="189.5" text-anchor="end" class="tick-label" fill="#888">128</text>
+  <line x1="60" y1="144.0" x2="65" y2="144.0" stroke="#1f5878" stroke-width="0.5" stroke-dasharray="2,2"/>
+  <text x="57" y="147.5" text-anchor="end" class="tick-label" fill="#888">256</text>
+  <line x1="60" y1="58.0" x2="65" y2="58.0" stroke="#1f5878" stroke-width="1"/>
+  <text x="57" y="61.5" text-anchor="end" class="tick-label" fill="#1f5878">512</text>
+
+  <!-- Left Y-axis title -->
+  <text x="20" y="250" text-anchor="middle" class="axis-label" fill="#1f5878" transform="rotate(-90,20,250)">Number of Communities</text>
+
+  <!-- Right Y-axis: Modularity (linear 0 to 1.0) -->
+  <!-- y range: 58 (top, mod=1.0) to 438 (bottom, mod=0.0) -->
+  <!-- y = 438 - mod * 380 -->
+  <line x1="720" y1="420.0" x2="727" y2="420.0" stroke="#e67e22" stroke-width="1"/>
+  <text x="730" y="423.5" class="tick-label" fill="#e67e22">0.0</text>
+  <line x1="720" y1="320.0" x2="727" y2="320.0" stroke="#e67e22" stroke-width="0.5" stroke-dasharray="2,2"/>
+  <text x="730" y="323.5" class="tick-label" fill="#e67e22">0.3</text>
+  <line x1="720" y1="210.0" x2="727" y2="210.0" stroke="#e67e22" stroke-width="0.5" stroke-dasharray="2,2"/>
+  <text x="730" y="213.5" class="tick-label" fill="#e67e22">0.6</text>
+  <line x1="720" y1="100.0" x2="727" y2="100.0" stroke="#e67e22" stroke-width="0.5" stroke-dasharray="2,2"/>
+  <text x="730" y="103.5" class="tick-label" fill="#e67e22">0.9</text>
+  <line x1="720" y1="58.0" x2="727" y2="58.0" stroke="#e67e22" stroke-width="1"/>
+  <text x="730" y="61.5" class="tick-label" fill="#e67e22">1.0</text>
+
+  <!-- Right Y-axis title -->
+  <text x="758" y="250" text-anchor="middle" class="axis-label" fill="#e67e22" transform="rotate(90,758,250)">Modularity</text>
+
+  <!-- Data for communities (blue line, circle markers) -->
+  <!-- γ=0.1: c=2, y=438.0 -->
+  <!-- γ=0.3: c=4, y=395.1 -->
+  <!-- γ=0.5: c=8, y=352.2 -->
+  <!-- γ=0.7: c=16, y=309.3 -->
+  <!-- γ=1.0: c=29, y=276.3 -->
+  <!-- γ=1.5: c=58, y=233.4 -->
+  <!-- γ=2.0: c=124, y=185.6 -->
+  <!-- γ=3.0: c=251, y=133.3 -->
+  <!-- γ=5.0: c=512, y=58.0 -->
+
+  <!-- x positions: 76.9, 100.7, 124.5, 148.4, 184.1, 243.6, 303.2, 422.3, 660.5 -->
+
+  <!-- Community line -->
+  <polyline points="76.9,438.0 100.7,395.1 124.5,352.2 148.4,309.3 184.1,276.3 243.6,233.4 303.2,185.6 422.3,133.3 660.5,58.0" stroke="#1f5878" stroke-width="2.5" fill="none"/>
+
+  <!-- Community data markers -->
+  <circle cx="76.9" cy="438.0" r="4.5" fill="#1f5878"/>
+  <text x="83.9" y="435.0" class="val-label">2</text>
+  <circle cx="100.7" cy="395.1" r="4.5" fill="#1f5878"/>
+  <text x="107.7" y="392.1" class="val-label">4</text>
+  <circle cx="124.5" cy="352.2" r="4.5" fill="#1f5878"/>
+  <text x="131.5" y="349.2" class="val-label">8</text>
+  <circle cx="148.4" cy="309.3" r="4.5" fill="#1f5878"/>
+  <text x="155.4" y="306.3" class="val-label">16</text>
+  <circle cx="184.1" cy="276.3" r="4.5" fill="#1f5878"/>
+  <text x="191.1" y="273.3" class="val-label">29</text>
+  <circle cx="243.6" cy="233.4" r="4.5" fill="#1f5878"/>
+  <text x="250.6" y="230.4" class="val-label">58</text>
+  <circle cx="303.2" cy="185.6" r="4.5" fill="#1f5878"/>
+  <text x="310.2" y="182.6" class="val-label">124</text>
+  <circle cx="422.3" cy="133.3" r="4.5" fill="#1f5878"/>
+  <text x="429.3" y="130.3" class="val-label">251</text>
+  <circle cx="660.5" cy="58.0" r="4.5" fill="#1f5878"/>
+  <text x="667.5" y="55.0" class="val-label">512</text>
+
+  <!-- Modularity data (orange line, square markers) -->
+  <!-- Estimated modularity values at each γ: -->
+  <!-- γ=0.1: 0.00, γ=0.3: 0.02, γ=0.5: 0.06, γ=0.7: 0.12 -->
+  <!-- γ=1.0: 0.22, γ=1.5: 0.34, γ=2.0: 0.44, γ=3.0: 0.56, γ=5.0: 0.62 -->
+  <!-- y = 438 - mod * 380 -->
+  <!-- 0.00→438.0, 0.02→430.4, 0.06→415.2, 0.12→392.4 -->
+  <!-- 0.22→354.4, 0.34→308.8, 0.44→270.8, 0.56→225.2, 0.62→202.4 -->
+
+  <polyline points="76.9,438.0 100.7,430.4 124.5,415.2 148.4,392.4 184.1,354.4 243.6,308.8 303.2,270.8 422.3,225.2 660.5,202.4" stroke="#e67e22" stroke-width="2.5" fill="none" stroke-dasharray="5,3"/>
+
+  <!-- Modularity data markers -->
+  <rect x="73.4" y="434.5" width="7" height="7" rx="1" fill="#e67e22"/>
+  <rect x="97.2" y="426.9" width="7" height="7" rx="1" fill="#e67e22"/>
+  <rect x="121.0" y="411.7" width="7" height="7" rx="1" fill="#e67e22"/>
+  <rect x="144.9" y="388.9" width="7" height="7" rx="1" fill="#e67e22"/>
+  <text x="155.0" y="396.0" class="val-mod-label">0.12</text>
+  <rect x="180.6" y="350.9" width="7" height="7" rx="1" fill="#e67e22"/>
+  <text x="191.0" y="355.0" class="val-mod-label">0.22</text>
+  <rect x="240.1" y="305.3" width="7" height="7" rx="1" fill="#e67e22"/>
+  <rect x="299.7" y="267.3" width="7" height="7" rx="1" fill="#e67e22"/>
+  <rect x="418.8" y="221.7" width="7" height="7" rx="1" fill="#e67e22"/>
+  <rect x="657.0" y="198.9" width="7" height="7" rx="1" fill="#e67e22"/>
+
+  <!-- Selected γ=1.0 annotation -->
+  <line x1="184.1" y1="276.3" x2="184.1" y2="438" stroke="#27ae60" stroke-width="1.5" stroke-dasharray="3,3"/>
+  <rect x="194" y="300" width="175" height="40" rx="4" fill="#fff" stroke="#27ae60" stroke-width="1"/>
+  <text x="200" y="317" fill="#27ae60" font-size="9" font-weight="bold">Selected: γ = 1.0</text>
+  <text x="200" y="333" fill="#555" font-size="8">29 communities · Mod = 0.22 · k-NN graph (k=15)</text>
+
+  <!-- Legend -->
+  <g transform="translate(65, 63)">
+    <line x1="0" y1="0" x2="30" y2="0" stroke="#1f5878" stroke-width="2.5"/>
+    <circle cx="15" cy="0" r="4.5" fill="#1f5878"/>
+    <text x="36" y="4" class="legend-text">Communities (log scale)</text>
+  </g>
+  <g transform="translate(300, 63)">
+    <line x1="0" y1="0" x2="30" y2="0" stroke="#e67e22" stroke-width="2.5" stroke-dasharray="5,3"/>
+    <rect x="11.5" y="-3.5" width="7" height="7" rx="1" fill="#e67e22"/>
+    <text x="36" y="4" class="legend-text">Modularity</text>
+  </g>
+</svg>

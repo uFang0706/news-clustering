@@ -1,0 +1,104 @@
+{
+  "$schema": "Catalog State Schema",
+  "description": "记录编目流程的迭代状态，支撑编排层的状态机控制",
+
+  "fields": {
+    "round": {
+      "type": "integer",
+      "description": "当前迭代轮次（0=初始聚类，1=第一轮编目，2+ = 拆分迭代）",
+      "default": 0
+    },
+    "max_rounds": {
+      "type": "integer",
+      "description": "最大允许轮次（超出后强制归档）",
+      "default": 3
+    },
+    "total_headlines": {
+      "type": "integer",
+      "description": "总标题数"
+    },
+    "nodes": {
+      "type": "array",
+      "description": "所有社区/子社区的节点列表（含历史）",
+      "items": {
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": "string",
+            "description": "节点 ID，格式: v{round}_c{index}",
+            "example": "v0_c0"
+          },
+          "parent": {
+            "type": ["string", "null"],
+            "description": "父节点 ID（根节点为 null）"
+          },
+          "depth": {
+            "type": "integer",
+            "description": "拆分深度（根节点 = 0）"
+          },
+          "size": {
+            "type": "integer",
+            "description": "该节点的标题数"
+          },
+          "keywords": {
+            "type": "string",
+            "description": "TF-IDF 关键词"
+          },
+          "mean_pairwise_dist": {
+            "type": ["number", "null"],
+            "description": "社区内平均 pairwise 距离"
+          },
+          "rule_grade": {
+            "type": ["string", "null"],
+            "description": "规则打分器的初判等级（A / D-meta / D-fragment / C / null）"
+          },
+          "rule_signals": {
+            "type": "object",
+            "description": "规则触发的信号"
+          },
+          "llm_grade": {
+            "type": ["string", "null"],
+            "description": "LLM 裁判的等级（A / B / C / D / null）"
+          },
+          "llm_name": {
+            "type": ["string", "null"],
+            "description": "LLM 命名"
+          },
+          "llm_action": {
+            "type": ["string", "null"],
+            "description": "LLM 建议操作（keep / rename / split / reject）"
+          },
+          "final_grade": {
+            "type": ["string", "null"],
+            "description": "最终等级（规则 + LLM 交叉后）"
+          },
+          "action": {
+            "type": ["string", "null"],
+            "description": "最终操作：accept / split / bin_meta / bin_fragment / bin_residual"
+          },
+          "children": {
+            "type": "array",
+            "description": "子节点 ID 列表",
+            "items": {"type": "string"}
+          },
+          "status": {
+            "type": "string",
+            "enum": ["pending", "assessed", "split", "accepted", "binned"],
+            "default": "pending"
+          }
+        }
+      }
+    },
+    "stopping": {
+      "type": "object",
+      "description": "停止条件检查结果",
+      "properties": {
+        "max_topic_ok": {"type": ["boolean", "null"]},
+        "min_size_ok": {"type": ["boolean", "null"]},
+        "cd_ratio_ok": {"type": ["boolean", "null"]},
+        "meta_clean": {"type": ["boolean", "null"]},
+        "all_named": {"type": ["boolean", "null"]}
+      }
+    }
+  }
+}

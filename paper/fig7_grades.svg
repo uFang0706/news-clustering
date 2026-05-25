@@ -1,0 +1,62 @@
+<svg width="950" height="480" viewBox="0 0 950 480" xmlns="http://www.w3.org/2000/svg">
+<style>text{font-family:"DejaVu Sans",sans-serif}</style>
+<rect width="950" height="480" fill="#020617"/>
+<text x="475" y="28" text-anchor="middle" fill="#e2e8f0" font-size="14" font-weight="bold">Figure 7. Node Distribution and LLM Grading Across Pipeline Rounds</text>
+
+<!-- Left: Node count by depth (stacked: total / accepted) -->
+<text x="250" y="55" text-anchor="middle" fill="#e2e8f0" font-size="11" font-weight="bold">Node Count by Depth</text>
+
+<line x1="60" y1="65" x2="60" y2="380" stroke="#334155" stroke-width="1"/>
+<line x1="60" y1="380" x2="480" y2="380" stroke="#334155" stroke-width="1"/>
+<text x="55" y="383" text-anchor="end" fill="#94a3b8" font-size="8">0</text>
+<text x="55" y="283" text-anchor="end" fill="#94a3b8" font-size="8">100</text>
+<text x="55" y="183" text-anchor="end" fill="#94a3b8" font-size="8">200</text>
+<text x="55" y="83" text-anchor="end" fill="#94a3b8" font-size="8">300</text>
+<text x="55" y="383" text-anchor="end" fill="#94a3b8" font-size="8">0</text>
+
+<line x1="60" y1="383" x2="480" y2="383" stroke="#334155" stroke-width="1"/>
+
+# Total bars (depth 0=29, depth 1=169, depth 2=546)
+for i, (total, accepted, label) in enumerate([(29, 13, "Depth 0
+Root"), (169, 26, "Depth 1
+Intermed"), (546, 546, "Depth 2
+Leaf")]):
+    x = 120 + i * 140
+    bar_h = total * 0.5
+    acc_h = accepted * 0.5
+    fig7 += f'<rect x="{x}" y="{383-bar_h}" width="45" height="{bar_h}" rx="2" fill="#64748b" opacity="0.35"/>'
+    fig7 += f'<rect x="{x}" y="{383-acc_h}" width="45" height="{acc_h}" rx="2" fill="#22d3ee"/>'
+    fig7 += f'<text x="{x+22}" y="{383-bar_h-5}" text-anchor="middle" fill="#e2e8f0" font-size="9">{total}</text>'
+    fig7 += f'<text x="{x+22}" y="{383-acc_h-5}" text-anchor="middle" fill="#22d3ee" font-size="9">{accepted}</text>'
+    fig7 += f'<text x="{x+22}" y="405" text-anchor="middle" fill="#e2e8f0" font-size="9">{label.split(chr(10))[0]}</text>'
+    fig7 += f'<text x="{x+22}" y="418" text-anchor="middle" fill="#94a3b8" font-size="8">{label.split(chr(10))[1]}</text>'
+
+# Right: LLM grade distribution pie
+<text x="720" y="55" text-anchor="middle" fill="#e2e8f0" font-size="11" font-weight="bold">LLM-Assigned Topic Grades</text>
+<text x="720" y="68" text-anchor="middle" fill="#94a3b8" font-size="9">N=592 LLM calls (grades normalized)</text>
+
+# Pie chart
+<circle cx="720" cy="230" r="120" fill="none" stroke="#1e293b" stroke-width="1"/>
+# B=575 (78.6%) -> arc 283°
+# A=9 (1.2%) -> arc 4.4°
+# C=148 (20.2%) -> arc 72.8°
+
+# B slice: from 0° to 283° (starting from top, clockwise)
+<path d="M 720 230 L 720 110 A 120 120 0 1 1 719.9 110 Z" fill="#22d3ee" stroke="#020617" stroke-width="2"/>
+# A slice
+<path d="M 720 230 L 719.9 110 A 120 120 0 0 1 714 110.5 Z" fill="#34d399" stroke="#020617" stroke-width="2"/>
+# C slice
+<path d="M 720 230 L 714 110.5 A 120 120 0 0 1 720 110 Z" fill="#fbbf24" stroke="#020617" stroke-width="2"/>
+
+# Labels
+<rect x="610" y="370" width="14" height="14" rx="2" fill="#22d3ee"/>
+<text x="630" y="381" fill="#e2e8f0" font-size="10">B (Mostly Unified) — 575</text>
+<rect x="610" y="390" width="14" height="14" rx="2" fill="#fbbf24"/>
+<text x="630" y="401" fill="#e2e8f0" font-size="10">C (Needs Splitting) — 148</text>
+<rect x="610" y="410" width="14" height="14" rx="2" fill="#34d399"/>
+<text x="630" y="421" fill="#e2e8f0" font-size="10">A (Highly Coherent) — 9</text>
+
+<text x="720" y="215" text-anchor="middle" fill="#e2e8f0" font-size="14" font-weight="bold">B</text>
+<text x="720" y="235" text-anchor="middle" fill="#64748b" font-size="10">78.6%</text>
+
+</svg>

@@ -1,0 +1,77 @@
+<svg width="900" height="400" viewBox="0 0 900 400" xmlns="http://www.w3.org/2000/svg">
+  <style>text{font-family: 'DejaVu Sans', sans-serif}</style>
+  <rect width="900" height="400" fill="#020617"/>
+  
+  <!-- Left: Bar chart -->
+  <text x="220" y="28" text-anchor="middle" fill="#e2e8f0" font-size="13" font-weight="bold">Node Distribution by Depth</text>
+  
+  <!-- Bars: Total -->
+  <rect x="80" y="50" width="60" height="250" fill="#64748b" opacity="0.35" rx="3"/>
+  <rect x="240" y="50" width="60" height="200" fill="#64748b" opacity="0.35" rx="3"/>
+  <rect x="400" y="50" width="60" height="50" fill="#64748b" opacity="0.35" rx="3"/>
+  
+  <!-- Bars: Accepted -->
+  <rect x="80" y="170" width="60" height="130" fill="#22d3ee" rx="3"/>
+  <rect x="240" y="170" width="60" height="80" fill="#22d3ee" rx="3"/>
+  <rect x="400" y="55" width="60" height="245" fill="#22d3ee" rx="3"/>
+  
+  <!-- Y-axis -->
+  <line x1="55" y1="50" x2="55" y2="300" stroke="#334155" stroke-width="1"/>
+  <line x1="55" y1="300" x2="550" y2="300" stroke="#334155" stroke-width="1"/>
+  
+  <!-- Y labels -->
+  <text x="50" y="303" text-anchor="end" fill="#94a3b8" font-size="9">0</text>
+  <text x="50" y="210" text-anchor="end" fill="#94a3b8" font-size="9">100</text>
+  <text x="50" y="110" text-anchor="end" fill="#94a3b8" font-size="9">200</text>
+  <text x="50" y="55" text-anchor="end" fill="#94a3b8" font-size="9">300</text>
+  
+  <!-- X labels -->
+  <text x="110" y="318" text-anchor="middle" fill="#e2e8f0" font-size="10">Depth 0</text>
+  <text x="110" y="332" text-anchor="middle" fill="#94a3b8" font-size="8">Root</text>
+  <text x="270" y="318" text-anchor="middle" fill="#e2e8f0" font-size="10">Depth 1</text>
+  <text x="270" y="332" text-anchor="middle" fill="#94a3b8" font-size="8">Intermediate</text>
+  <text x="430" y="318" text-anchor="middle" fill="#e2e8f0" font-size="10">Depth 2</text>
+  <text x="430" y="332" text-anchor="middle" fill="#94a3b8" font-size="8">Leaf</text>
+  
+  <!-- Counts on bars -->
+  <text x="110" y="55" text-anchor="middle" fill="#e2e8f0" font-size="9">29</text>
+  <text x="110" y="165" text-anchor="middle" fill="#e2e8f0" font-size="9">13</text>
+  <text x="270" y="55" text-anchor="middle" fill="#e2e8f0" font-size="9">169</text>
+  <text x="270" y="165" text-anchor="middle" fill="#e2e8f0" font-size="9">26</text>
+  <text x="430" y="52" text-anchor="middle" fill="#e2e8f0" font-size="9">546</text>
+  
+  <!-- Legend -->
+  <rect x="60" y="350" width="12" height="12" fill="#64748b" opacity="0.5"/>
+  <text x="78" y="360" fill="#94a3b8" font-size="9">Total nodes</text>
+  <rect x="160" y="350" width="12" height="12" fill="#22d3ee"/>
+  <text x="178" y="360" fill="#94a3b8" font-size="9">Accepted</text>
+  
+  <!-- Right: Pie chart -->
+  <text x="730" y="28" text-anchor="middle" fill="#e2e8f0" font-size="13" font-weight="bold">LLM-Grade Distribution</text>
+  
+  <!-- Pie slices: B=575, A=9, C=148. Total=732 -->
+  <!-- B: 575/732 = 78.6% → 282.8 degrees -->
+  <!-- A: 9/732 = 1.2% → 4.4 degrees -->
+  <!-- C: 148/732 = 20.2% → 72.8 degrees -->
+  
+  <!-- B slice (cyan) -->
+  <path d="M 730 200 L 730 70 A 130 130 0 1 1 729.9 70 Z" fill="#22d3ee" stroke="#020617" stroke-width="2"/>
+  <!-- A slice (green) -->
+  <path d="M 730 200 L 729.9 70 A 130 130 0 0 1 726 70.5 Z" fill="#34d399" stroke="#020617" stroke-width="2"/>
+  <!-- C slice (amber) - remainder -->
+  <path d="M 730 200 L 726 70.5 A 130 130 0 0 1 730 70 Z" fill="#fbbf24" stroke="#020617" stroke-width="2"/>
+  
+  <!-- Labels -->
+  <circle cx="620" cy="300" r="5" fill="#22d3ee"/>
+  <text x="632" y="303" fill="#e2e8f0" font-size="10">B (Mostly Unified) — 575</text>
+  
+  <circle cx="620" cy="320" r="5" fill="#fbbf24"/>
+  <text x="632" y="323" fill="#e2e8f0" font-size="10">C (Needs Splitting) — 148</text>
+  
+  <circle cx="620" cy="340" r="5" fill="#34d399"/>
+  <text x="632" y="343" fill="#e2e8f0" font-size="10">A (Highly Coherent) — 9</text>
+  
+  <!-- Percentage on pie -->
+  <text x="730" y="195" text-anchor="middle" fill="#e2e8f0" font-size="12">B</text>
+  <text x="730" y="210" text-anchor="middle" fill="#94a3b8" font-size="8">78.6%</text>
+</svg>

@@ -1,0 +1,150 @@
+<svg width="800" height="500" viewBox="0 0 800 500" xmlns="http://www.w3.org/2000/svg">
+  <defs>
+    <linearGradient id="bg" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0%" stop-color="#f8f9fa"/>
+      <stop offset="100%" stop-color="#ffffff"/>
+    </linearGradient>
+  </defs>
+  <style>
+    text { font-family: 'DejaVu Sans', 'Arial', sans-serif; }
+    .title { fill: #1a1a2e; font-size: 14px; font-weight: bold; }
+    .subtitle { fill: #555; font-size: 9px; }
+    .axis-label { fill: #333; font-size: 11px; font-weight: bold; }
+    .tick-label { fill: #555; font-size: 9px; }
+    .bar-total { fill: #555; font-size: 10px; font-weight: bold; }
+    .bar-accepted { fill: #fff; font-size: 9px; font-weight: bold; }
+    .legend-text { fill: #333; font-size: 9px; }
+    .legend-val { fill: #555; font-size: 8px; }
+  </style>
+
+  <rect width="800" height="500" fill="url(#bg)" rx="4"/>
+
+  <!-- Title -->
+  <text x="400" y="24" text-anchor="middle" class="title">Figure 7. Grade Distribution and Depth Analysis</text>
+  <text x="400" y="40" text-anchor="middle" class="subtitle">Left: Node distribution by depth level. Right: LLM-assigned topic grades (N=592 LLM + 12 rule-determined).</text>
+
+  <!-- ==================== LEFT PANEL: Bar Chart ==================== -->
+  <g transform="translate(0,0)">
+    <text x="195" y="60" text-anchor="middle" class="axis-label">Node Distribution by Depth</text>
+
+    <!-- Y-axis -->
+    <line x1="55" y1="72" x2="55" y2="385" stroke="#ccc" stroke-width="1"/>
+    <line x1="55" y1="385" x2="375" y2="385" stroke="#ccc" stroke-width="1"/>
+
+    <!-- Gridlines -->
+    <line x1="55" y1="385" x2="375" y2="385" stroke="#eee" stroke-width="0.5"/>
+    <line x1="55" y1="333" x2="375" y2="333" stroke="#eee" stroke-width="0.5"/>
+    <line x1="55" y1="281" x2="375" y2="281" stroke="#eee" stroke-width="0.5"/>
+    <line x1="55" y1="229" x2="375" y2="229" stroke="#eee" stroke-width="0.5"/>
+    <line x1="55" y1="177" x2="375" y2="177" stroke="#eee" stroke-width="0.5"/>
+    <line x1="55" y1="124" x2="375" y2="124" stroke="#eee" stroke-width="0.5"/>
+    <line x1="55" y1="72" x2="375" y2="72" stroke="#eee" stroke-width="0.5"/>
+
+    <!-- Y labels: 0 to 600, every 100 -->
+    <text x="50" y="388" text-anchor="end" class="tick-label">0</text>
+    <text x="50" y="336" text-anchor="end" class="tick-label">100</text>
+    <text x="50" y="284" text-anchor="end" class="tick-label">200</text>
+    <text x="50" y="232" text-anchor="end" class="tick-label">300</text>
+    <text x="50" y="180" text-anchor="end" class="tick-label">400</text>
+    <text x="50" y="128" text-anchor="end" class="tick-label">500</text>
+    <text x="50" y="76" text-anchor="end" class="tick-label">600</text>
+
+    <!-- Y-axis label -->
+    <text x="20" y="230" text-anchor="middle" font-size="10" fill="#333" transform="rotate(-90,20,230)">Node Count</text>
+
+    <!-- Bar data -->
+    <!-- Scale: 385 = 0, 72 = 600. Range: 313px for 600. 1 unit = 313/600 = 0.5217px -->
+
+    <!-- Depth 0: total=29, accepted=13 -->
+    <!-- Total: y=385-29*0.522=369.9; Accepted: y=385-13*0.522=378.2 -->
+    <rect x="70" y="349.9" width="55" height="35.1" rx="3" fill="#4a9bb5" opacity="0.25"/>
+    <rect x="70" y="369.9" width="55" height="15.1" rx="3" fill="#4a9bb5"/>
+    <text x="97" y="346.9" text-anchor="middle" class="bar-total">29</text>
+    <text x="97" y="366.9" text-anchor="middle" class="bar-accepted">13</text>
+
+    <!-- Depth 1: total=169, accepted=26 -->
+    <!-- Total: y=385-169*0.522=296.8; Accepted: y=385-26*0.522=371.4 -->
+    <rect x="165" y="296.8" width="55" height="88.2" rx="3" fill="#4a9bb5" opacity="0.25"/>
+    <rect x="165" y="371.4" width="55" height="13.6" rx="3" fill="#4a9bb5"/>
+    <text x="192" y="293.8" text-anchor="middle" class="bar-total">169</text>
+    <text x="192" y="368.4" text-anchor="middle" class="bar-accepted">26</text>
+
+    <!-- Depth 2: total=546 (all accepted/auto) -->
+    <!-- y=385-546*0.522=99.8 -->
+    <rect x="260" y="99.8" width="55" height="285.2" rx="3" fill="#4a9bb5"/>
+    <text x="287" y="96.8" text-anchor="middle" class="bar-total">546</text>
+    <text x="287" y="370" text-anchor="middle" class="bar-accepted" fill="#4a9bb5" font-size="8">(all auto-accepted)</text>
+
+    <!-- X labels -->
+    <text x="97" y="400" text-anchor="middle" class="axis-label" font-size="10">Depth 0</text>
+    <text x="97" y="412" text-anchor="middle" class="subtitle">Root</text>
+    <text x="192" y="400" text-anchor="middle" class="axis-label" font-size="10">Depth 1</text>
+    <text x="192" y="412" text-anchor="middle" class="subtitle">Intermediate</text>
+    <text x="287" y="400" text-anchor="middle" class="axis-label" font-size="10">Depth 2</text>
+    <text x="287" y="412" text-anchor="middle" class="subtitle">Leaf (auto-accept)</text>
+
+    <!-- Legend -->
+    <rect x="60" y="435" width="14" height="14" rx="2" fill="#4a9bb5" opacity="0.25"/>
+    <text x="80" y="446" class="legend-text">Total nodes</text>
+    <rect x="170" y="435" width="14" height="14" rx="2" fill="#4a9bb5"/>
+    <text x="190" y="446" class="legend-text">Accepted nodes</text>
+
+    <!-- Notes -->
+    <text x="60" y="470" fill="#888" font-size="7">29 initial → 13 accepted, 11 split, 5 binned</text>
+    <text x="60" y="482" fill="#888" font-size="7">169 intermediate → 26 accepted, 137 split, 6 binned</text>
+    <text x="60" y="494" fill="#888" font-size="7">546 leaf → 100% auto-accepted (depth ≥ 2 rule)</text>
+  </g>
+
+  <!-- ==================== RIGHT PANEL: Donut Chart ==================== -->
+  <g transform="translate(380,0)">
+    <text x="210" y="60" text-anchor="middle" class="axis-label">LLM-Assigned Topic Grades</text>
+    <text x="210" y="74" text-anchor="middle" class="subtitle">732 total assessments (592 LLM + 140 re-assessments)</text>
+
+    <!-- Donut chart center: (210, 240), r_outer=110, r_inner=55 -->
+    <!-- Data: B=575 (78.6%=283.0°), A=9 (1.2%=4.3°), C=148 (20.2%=72.7°) -->
+    <!-- D=12 rule-determined nodes shown separately -->
+
+    <!-- B slice: 0°→283°, large arc (283>180) -->
+    <path d="M 210 240 L 210.0 130.0 A 110 110 0 1 1 102.8 215.3 L 156.4 227.6 A 55 55 0 1 0 210.0 185.0 Z" fill="#4a9bb5" stroke="#fff" stroke-width="2"/>
+
+    <!-- A slice: 283°→287.3° (4.3°), small arc -->
+    <path d="M 210 240 L 102.8 215.3 A 110 110 0 0 1 105.0 207.2 L 157.5 223.6 A 55 55 0 0 0 156.4 227.6 Z" fill="#27ae60" stroke="#fff" stroke-width="2"/>
+
+    <!-- C slice: 287.3°→360° (72.7°), small arc -->
+    <path d="M 210 240 L 105.0 207.2 A 110 110 0 0 1 210.0 130.0 L 210.0 185.0 A 55 55 0 0 0 157.5 223.6 Z" fill="#e67e22" stroke="#fff" stroke-width="2"/>
+
+    <!-- Inner circle -->
+    <circle cx="210" cy="240" r="55" fill="#fff" stroke="#ddd" stroke-width="1"/>
+
+    <!-- Center text -->
+    <text x="210" y="235" text-anchor="middle" fill="#1a1a2e" font-size="16" font-weight="bold">B</text>
+    <text x="210" y="252" text-anchor="middle" fill="#555" font-size="10">78.6%</text>
+
+    <!-- Connector lines -->
+    <!-- B label -->
+    <line x1="140" y1="148" x2="50" y2="148" stroke="#4a9bb5" stroke-width="0.8"/>
+    <circle cx="140" cy="148" r="3" fill="#4a9bb5"/>
+    <!-- A label -->
+    <line x1="110" y1="211" x2="50" y2="211" stroke="#27ae60" stroke-width="0.8"/>
+    <circle cx="110" cy="211" r="3" fill="#27ae60"/>
+    <!-- C label -->
+    <line x1="148" y1="340" x2="50" y2="340" stroke="#e67e22" stroke-width="0.8"/>
+    <circle cx="148" cy="340" r="3" fill="#e67e22"/>
+
+    <!-- Legend entries -->
+    <text x="52" y="142" fill="#4a9bb5" font-size="10" font-weight="bold">B (Mostly Unified)</text>
+    <text x="52" y="155" fill="#555" font-size="9">575 nodes (78.6%)</text>
+
+    <text x="52" y="206" fill="#27ae60" font-size="10" font-weight="bold">A (Highly Coherent)</text>
+    <text x="52" y="219" fill="#555" font-size="9">9 nodes (1.2%)</text>
+
+    <text x="52" y="335" fill="#e67e22" font-size="10" font-weight="bold">C (Needs Splitting)</text>
+    <text x="52" y="348" fill="#555" font-size="9">148 nodes (20.2%)</text>
+
+    <!-- D (Rule-determined) info box -->
+    <rect x="40" y="410" width="340" height="55" rx="4" fill="#fff8e1" stroke="#e67e22" stroke-width="1"/>
+    <text x="50" y="428" fill="#d35400" font-size="9" font-weight="bold">Rule-Determined (Grade D) — 12 nodes at zero API cost</text>
+    <text x="50" y="445" fill="#555" font-size="8">D-meta=6 (blacklist keywords), D-fragment=5 (size &lt; 30), C-by-rule=1 (size &gt; 15%)</text>
+    <text x="50" y="460" fill="#888" font-size="7">Rules R1-R5 catch obvious cases; R6 delegates border cases to LLM Judge</text>
+  </g>
+</svg>

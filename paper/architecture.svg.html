@@ -1,0 +1,193 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>News Catalog — System Architecture</title>
+<style>
+body { background: #020617; margin:0; display:flex; justify-content:center; align-items:center; min-height: 100vh; font-family: 'JetBrains Mono', monospace; }
+@import url('https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;600&display=swap');
+</style>
+</head>
+<body>
+<svg width="1100" height="900" viewBox="0 0 1100 900" xmlns="http://www.w3.org/2000/svg">
+  <defs>
+    <pattern id="grid" width="40" height="40" patternUnits="userSpaceOnUse">
+      <path d="M 40 0 L 0 0 0 40" fill="none" stroke="#1e293b" stroke-width="0.5"/>
+    </pattern>
+    <marker id="arrow" viewBox="0 0 10 10" refX="10" refY="5" markerWidth="8" markerHeight="8" orient="auto">
+      <path d="M 0 0 L 10 5 L 0 10 z" fill="#94a3b8"/>
+    </marker>
+    <marker id="arrow-up" viewBox="0 0 10 10" refX="10" refY="5" markerWidth="8" markerHeight="8" orient="auto">
+      <path d="M 0 0 L 10 5 L 0 10 z" fill="#22d3ee"/>
+    </marker>
+  </defs>
+  <rect width="1100" height="900" fill="url(#grid)"/>
+  
+  <!-- Title -->
+  <text x="550" y="40" text-anchor="middle" fill="#e2e8f0" font-size="18" font-weight="600">News Topic Catalog — System Architecture</text>
+  
+  <!-- LAYER 1: DATA -->
+  <rect x="40" y="60" width="1020" height="140" rx="8" fill="none" stroke="#6366f1" stroke-width="1.5" stroke-dasharray="6,3"/>
+  <text x="50" y="80" fill="#a5b4fc" font-size="10">DATA LAYER</text>
+  
+  <rect x="60" y="90" width="220" height="90" rx="6" fill="rgba(76,29,149,0.3)" stroke="#a78bfa" stroke-width="1.2"/>
+  <text x="170" y="118" text-anchor="middle" fill="#e2e8f0" font-size="11">News Headlines</text>
+  <text x="170" y="133" text-anchor="middle" fill="#94a3b8" font-size="9">50,000 headlines</text>
+  <text x="170" y="148" text-anchor="middle" fill="#94a3b8" font-size="9">ABC News Australia</text>
+  
+  <rect x="310" y="90" width="220" height="90" rx="6" fill="rgba(76,29,149,0.3)" stroke="#a78bfa" stroke-width="1.2"/>
+  <text x="420" y="118" text-anchor="middle" fill="#e2e8f0" font-size="11">Embeddings</text>
+  <text x="420" y="133" text-anchor="middle" fill="#94a3b8" font-size="9">GTE-small (384d)</text>
+  <text x="420" y="148" text-anchor="middle" fill="#94a3b8" font-size="9">(N, 384) float32</text>
+  
+  <rect x="560" y="90" width="220" height="90" rx="6" fill="rgba(76,29,149,0.3)" stroke="#a78bfa" stroke-width="1.2"/>
+  <text x="670" y="118" text-anchor="middle" fill="#e2e8f0" font-size="11">Leiden Communities</text>
+  <text x="670" y="133" text-anchor="middle" fill="#94a3b8" font-size="9">29 initial clusters</text>
+  <text x="670" y="148" text-anchor="middle" fill="#94a3b8" font-size="9">TF-IDF keywords</text>
+
+  <rect x="810" y="90" width="220" height="90" rx="6" fill="rgba(76,29,149,0.3)" stroke="#a78bfa" stroke-width="1.2"/>
+  <text x="920" y="118" text-anchor="middle" fill="#e2e8f0" font-size="11">LLM Cache</text>
+  <text x="920" y="133" text-anchor="middle" fill="#94a3b8" font-size="9">MiniMax responses</text>
+  <text x="920" y="148" text-anchor="middle" fill="#94a3b8" font-size="9">585+ entries</text>
+
+  <!-- Vertical arrow L1→L2 -->
+  <line x1="550" y1="200" x2="550" y2="220" stroke="#94a3b8" stroke-width="1.5" marker-end="url(#arrow)"/>
+  
+  <!-- LAYER 2: ALGORITHM -->
+  <rect x="40" y="225" width="1020" height="260" rx="8" fill="none" stroke="#34d399" stroke-width="1.5" stroke-dasharray="6,3"/>
+  <text x="50" y="245" fill="#6ee7b7" font-size="10">ALGORITHM LAYER</text>
+  
+  <!-- Clustering Engine -->
+  <rect x="60" y="260" width="290" height="100" rx="6" fill="rgba(6,78,59,0.3)" stroke="#34d399" stroke-width="1.2"/>
+  <text x="205" y="285" text-anchor="middle" fill="#e2e8f0" font-size="11" font-weight="600">Initial Clustering Engine</text>
+  <text x="80" y="305" fill="#94a3b8" font-size="9">• k-NN graph construction (k=15)</text>
+  <text x="80" y="320" fill="#94a3b8" font-size="9">• Leiden algorithm on similarity graph</text>
+  <text x="80" y="335" fill="#94a3b8" font-size="9">• RBConfiguration Vertex Partition</text>
+  <text x="80" y="350" fill="#94a3b8" font-size="9">• Post-hoc centroid grouping</text>
+  
+  <!-- Split Engine -->
+  <rect x="380" y="260" width="290" height="100" rx="6" fill="rgba(6,78,59,0.3)" stroke="#34d399" stroke-width="1.2"/>
+  <text x="525" y="285" text-anchor="middle" fill="#e2e8f0" font-size="11" font-weight="600">Refinement Split Engine</text>
+  <text x="400" y="305" fill="#94a3b8" font-size="9">• Sub-community k-NN + Leiden</text>
+  <text x="400" y="320" fill="#94a3b8" font-size="9">• Dynamic resolution: 0.6–1.2</text>
+  <text x="400" y="335" fill="#94a3b8" font-size="9">• TF-IDF keyword extraction</text>
+  <text x="400" y="350" fill="#94a3b8" font-size="9">• Min community size: 5</text>
+  
+  <!-- LLM Judge -->
+  <rect x="700" y="260" width="330" height="100" rx="6" fill="rgba(6,78,59,0.3)" stroke="#34d399" stroke-width="1.2"/>
+  <text x="865" y="285" text-anchor="middle" fill="#e2e8f0" font-size="11" font-weight="600">LLM-Augmented Judge</text>
+  <text x="720" y="305" fill="#94a3b8" font-size="9">• MiniMax-M2.7 (Anthropic API)</text>
+  <text x="720" y="320" fill="#94a3b8" font-size="9">• 5+3 representative headlines</text>
+  <text x="720" y="335" fill="#94a3b8" font-size="9">• Grade: A(clean)→B(ok)→C(mixed)→D(meta)</text>
+  <text x="720" y="350" fill="#94a3b8" font-size="9">• Auto-retry on thinking-only responses</text>
+
+  <!-- Rule Scorer -->
+  <rect x="60" y="380" width="970" height="90" rx="6" fill="rgba(6,78,59,0.25)" stroke="#34d399" stroke-width="1.0"/>
+  <text x="550" y="400" text-anchor="middle" fill="#e2e8f0" font-size="11" font-weight="600">Rule-Based Scorer (6 deterministic rules)</text>
+  
+  <rect x="80" y="410" width="140" height="45" rx="4" fill="rgba(6,78,59,0.35)" stroke="#10b981" stroke-width="0.8"/>
+  <text x="150" y="427" text-anchor="middle" fill="#e2e8f0" font-size="9">R1: Size < 30</text>
+  <text x="150" y="442" text-anchor="middle" fill="#f87171" font-size="8">→ D-fragment</text>
+  
+  <rect x="235" y="410" width="140" height="45" rx="4" fill="rgba(6,78,59,0.35)" stroke="#10b981" stroke-width="0.8"/>
+  <text x="305" y="427" text-anchor="middle" fill="#e2e8f0" font-size="9">R2: Size > 15%</text>
+  <text x="305" y="442" text-anchor="middle" fill="#fbbf24" font-size="8">→ C (split)</text>
+  
+  <rect x="390" y="410" width="140" height="45" rx="4" fill="rgba(6,78,59,0.35)" stroke="#10b981" stroke-width="0.8"/>
+  <text x="460" y="427" text-anchor="middle" fill="#e2e8f0" font-size="9">R3: Blacklist</text>
+  <text x="460" y="442" text-anchor="middle" fill="#f87171" font-size="8">→ D-meta</text>
+  
+  <rect x="545" y="410" width="140" height="45" rx="4" fill="rgba(6,78,59,0.35)" stroke="#10b981" stroke-width="0.8"/>
+  <text x="615" y="427" text-anchor="middle" fill="#e2e8f0" font-size="9">R4: Domain ≥ 4</text>
+  <text x="615" y="442" text-anchor="middle" fill="#fbbf24" font-size="8">→ C (split)</text>
+  
+  <rect x="700" y="410" width="140" height="45" rx="4" fill="rgba(6,78,59,0.35)" stroke="#10b981" stroke-width="0.8"/>
+  <text x="770" y="427" text-anchor="middle" fill="#e2e8f0" font-size="9">R5: Centroid Var</text>
+  <text x="770" y="442" text-anchor="middle" fill="#fbbf24" font-size="8">→ C (split)</text>
+
+  <rect x="855" y="410" width="155" height="45" rx="4" fill="rgba(6,78,59,0.35)" stroke="#10b981" stroke-width="0.8"/>
+  <text x="932" y="427" text-anchor="middle" fill="#e2e8f0" font-size="9">No rule triggered</text>
+  <text x="932" y="442" text-anchor="middle" fill="#22d3ee" font-size="8">→ LLM Judge</text>
+
+  <!-- Arrows within algorithm layer -->
+  <line x1="350" y1="310" x2="380" y2="310" stroke="#94a3b8" stroke-width="1.5" marker-end="url(#arrow)"/>
+  <line x1="670" y1="310" x2="700" y2="310" stroke="#94a3b8" stroke-width="1.5" marker-end="url(#arrow)"/>
+  <line x1="550" y1="470" x2="550" y2="490" stroke="#94a3b8" stroke-width="1.5" marker-end="url(#arrow)"/>
+
+  <!-- Vertical arrow L2→L3 -->
+  <line x1="550" y1="485" x2="550" y2="510" stroke="#22d3ee" stroke-width="2" marker-end="url(#arrow-up)"/>
+
+  <!-- LAYER 3: ORCHESTRATION -->
+  <rect x="40" y="515" width="1020" height="180" rx="8" fill="none" stroke="#38bdf8" stroke-width="1.5" stroke-dasharray="6,3"/>
+  <text x="50" y="535" fill="#7dd3fc" font-size="10">ORCHESTRATION LAYER (Finite State Machine)</text>
+  
+  <!-- State machine diagram -->
+  <rect x="60" y="550" width="130" height="45" rx="22" fill="rgba(8,51,68,0.4)" stroke="#22d3ee" stroke-width="1.5"/>
+  <text x="125" y="577" text-anchor="middle" fill="#e2e8f0" font-size="10">INIT</text>
+  
+  <line x1="190" y1="572" x2="230" y2="572" stroke="#22d3ee" stroke-width="1.5" marker-end="url(#arrow-up)"/>
+  
+  <rect x="235" y="550" width="130" height="45" rx="22" fill="rgba(8,51,68,0.4)" stroke="#22d3ee" stroke-width="1.5"/>
+  <text x="300" y="577" text-anchor="middle" fill="#e2e8f0" font-size="10">CLUSTER</text>
+  
+  <line x1="365" y1="572" x2="405" y2="572" stroke="#22d3ee" stroke-width="1.5" marker-end="url(#arrow-up)"/>
+
+  <rect x="410" y="550" width="130" height="45" rx="22" fill="rgba(8,51,68,0.4)" stroke="#22d3ee" stroke-width="1.5"/>
+  <text x="475" y="577" text-anchor="middle" fill="#e2e8f0" font-size="10">ASSESS</text>
+  
+  <line x1="540" y1="572" x2="580" y2="572" stroke="#22d3ee" stroke-width="1.5" marker-end="url(#arrow-up)"/>
+  
+  <rect x="585" y="550" width="130" height="45" rx="22" fill="rgba(8,51,68,0.4)" stroke="#22d3ee" stroke-width="1.5"/>
+  <text x="650" y="577" text-anchor="middle" fill="#e2e8f0" font-size="10">SPLIT</text>
+  
+  <line x1="715" y1="572" x2="755" y2="572" stroke="#22d3ee" stroke-width="1.5" marker-end="url(#arrow-up)"/>
+  
+  <rect x="760" y="550" width="130" height="45" rx="22" fill="rgba(8,51,68,0.4)" stroke="#22d3ee" stroke-width="1.5"/>
+  <text x="825" y="577" text-anchor="middle" fill="#e2e8f0" font-size="10">CHECK</text>
+  
+  <line x1="890" y1="572" x2="930" y2="572" stroke="#22d3ee" stroke-width="1.5" marker-end="url(#arrow-up)"/>
+  
+  <rect x="935" y="550" width="100" height="45" rx="22" fill="rgba(8,51,68,0.4)" stroke="#22d3ee" stroke-width="1.5"/>
+  <text x="985" y="577" text-anchor="middle" fill="#e2e8f0" font-size="10">EXPORT</text>
+
+  <!-- Feedback loop -->
+  <path d="M 825 595 Q 825 640 475 640 Q 125 640 125 595" fill="none" stroke="#fbbf24" stroke-width="1.5" stroke-dasharray="4,3" marker-end="url(#arrow-up)"/>
+  <text x="550" y="658" text-anchor="middle" fill="#fbbf24" font-size="9">Iteration (ASSESS → SPLIT → CHECK → next round)</text>
+
+  <!-- Decision table below state machine -->
+  <rect x="60" y="670" width="970" height="20" rx="3" fill="rgba(8,51,68,0.2)" stroke="#22d3ee" stroke-width="0.5"/>
+  <text x="80" y="684" fill="#94a3b8" font-size="8">Q: Any C-grade nodes left? → Go back to ASSESS   |   Q: Is CHECK_STOP all True? → Proceed to EXPORT   |   Max 3 rounds</text>
+
+  <!-- Vertical arrow L3→L4 -->
+  <line x1="550" y1="695" x2="550" y2="720" stroke="#94a3b8" stroke-width="1.5" marker-end="url(#arrow)"/>
+
+  <!-- LAYER 4: DELIVERY -->
+  <rect x="40" y="725" width="1020" height="140" rx="8" fill="none" stroke="#fb923c" stroke-width="1.5" stroke-dasharray="6,3"/>
+  <text x="50" y="745" fill="#fdba74" font-size="10">DELIVERY LAYER</text>
+
+  <rect x="80" y="758" width="210" height="90" rx="6" fill="rgba(120,53,15,0.3)" stroke="#fb923c" stroke-width="1.2"/>
+  <text x="185" y="785" text-anchor="middle" fill="#e2e8f0" font-size="11">catalog.csv</text>
+  <text x="185" y="803" text-anchor="middle" fill="#94a3b8" font-size="9">585 topics</text>
+  <text x="185" y="818" text-anchor="middle" fill="#94a3b8" font-size="9">Depth, name, grade, size</text>
+  
+  <rect x="330" y="758" width="210" height="90" rx="6" fill="rgba(120,53,15,0.3)" stroke="#fb923c" stroke-width="1.2"/>
+  <text x="435" y="785" text-anchor="middle" fill="#e2e8f0" font-size="11">tree.json</text>
+  <text x="435" y="803" text-anchor="middle" fill="#94a3b8" font-size="9">24 root groups</text>
+  <text x="435" y="818" text-anchor="middle" fill="#94a3b8" font-size="9">3-level hierarchy</text>
+
+  <rect x="580" y="758" width="210" height="90" rx="6" fill="rgba(120,53,15,0.3)" stroke="#fb923c" stroke-width="1.2"/>
+  <text x="685" y="785" text-anchor="middle" fill="#e2e8f0" font-size="11">summary.json</text>
+  <text x="685" y="803" text-anchor="middle" fill="#94a3b8" font-size="9">94.3% coverage</text>
+  <text x="685" y="818" text-anchor="middle" fill="#94a3b8" font-size="9">585 accepted topics</text>
+
+  <rect x="830" y="758" width="200" height="90" rx="6" fill="rgba(120,53,15,0.3)" stroke="#fb923c" stroke-width="1.2"/>
+  <text x="930" y="785" text-anchor="middle" fill="#e2e8f0" font-size="11">meta_bucket.csv</text>
+  <text x="930" y="803" text-anchor="middle" fill="#94a3b8" font-size="9">6 program markers</text>
+  <text x="930" y="818" text-anchor="middle" fill="#94a3b8" font-size="9">5 residual fragments</text>
+
+  <!-- Stats bar -->
+  <rect x="60" y="860" width="970" height="25" rx="4" fill="rgba(99,102,241,0.15)" stroke="#6366f1" stroke-width="0.8"/>
+  <text x="550" y="877" text-anchor="middle" fill="#a5b4fc" font-size="9">50,000 headlines → 94.3% coverage · 585 leaf topics · 3-level hierarchy · 24 root groups</text>
+</svg>
+</body>
+</html>

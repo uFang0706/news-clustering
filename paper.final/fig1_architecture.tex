@@ -1,0 +1,205 @@
+% ==============================================================================
+% Figure 1: System Architecture — Three-Layer Pipeline
+% ==============================================================================
+% Compile with: pdflatex fig1_architecture.tex (2 runs)
+% Requires: TikZ, xcolor, amsmath
+% ==============================================================================
+\documentclass[tikz, border=3pt]{standalone}
+\usepackage{tikz}
+\usepackage{xcolor}
+\usepackage{amsmath}
+\usetikzlibrary{shapes, arrows, positioning, fit, backgrounds, calc, decorations.pathreplacing}
+
+% Color palette
+\definecolor{primary}{HTML}{1f5878}
+\definecolor{secondary}{HTML}{2c6e8a}
+\definecolor{accent1}{HTML}{4a9bb5}
+\definecolor{accent2}{HTML}{e67e22}
+\definecolor{accent3}{HTML}{27ae60}
+\definecolor{darkbg}{HTML}{1a1a2e}
+\definecolor{cardbg}{HTML}{f0f4f8}
+\definecolor{textlight}{HTML}{555555}
+\definecolor{textdark}{HTML}{1a1a2e}
+
+\begin{document}
+\begin{tikzpicture}[
+    node distance=4mm and 8mm,
+    box/.style={
+        rectangle, rounded corners=4pt, draw=#1!60!black, fill=#1!12,
+        minimum width=48mm, minimum height=24mm, align=center, inner sep=3mm,
+        font=\small
+    },
+    boxsmall/.style={
+        rectangle, rounded corners=3pt, draw=#1!60!black, fill=#1!12,
+        minimum width=28mm, minimum height=16mm, align=center, inner sep=2mm,
+        font=\small
+    },
+    rulebox/.style={
+        rectangle, rounded corners=3pt, draw=accent2!60!black, fill=accent2!10,
+        minimum width=24mm, minimum height=8mm, align=center, inner sep=1mm,
+        font=\footnotesize
+    },
+    state/.style={
+        rectangle, rounded corners=8, draw=primary!70, fill=primary!15,
+        minimum width=22mm, minimum height=8mm, align=center, inner sep=1.5mm,
+        font=\footnotesize\bfseries
+    },
+    arrow/.style={
+        ->, >=stealth, thick, draw=textlight!70
+    },
+    label/.style={
+        font=\footnotesize\itshape, text=textlight
+    },
+    layerlabel/.style={
+        font=\bfseries\small, text=#1, anchor=west
+    },
+    annotation/.style={
+        font=\tiny, text=textlight
+    }
+]
+
+% ==============================================================================
+% LAYER 1: DATA LAYER
+% ==============================================================================
+\begin{scope}[on background layer]
+    \fill[primary!5, rounded corners=6pt] (-0.5, 5.2) rectangle (17.5, 9.5);
+    \draw[primary!30, dashed, rounded corners=6pt] (-0.5, 5.2) rectangle (17.5, 9.5);
+\end{scope}
+\node[layerlabel={primary}] at (0.2, 9.0) {Layer 1: Data \& Embedding};
+
+\node[box={primary}] (headlines) at (3.0, 7.2) {
+    \textbf{News Headlines}\\[2pt]
+    \footnotesize 50,000 headlines\\[1pt]
+    \footnotesize ABC News Australia
+};
+
+\node[box={primary}] (embeddings) at (8.5, 7.2) {
+    \textbf{Embeddings}\\[2pt]
+    \footnotesize all-MiniLM-L6-v2\\[1pt]
+    \footnotesize (N, 384) float32
+};
+
+\node[box={primary}] (kgraph) at (14.0, 7.2) {
+    \textbf{k-NN Graph}\\[2pt]
+    \footnotesize k = 20\\[1pt]
+    \footnotesize Cosine similarity
+};
+
+\draw[arrow] (headlines.east) -- (embeddings.west);
+\draw[arrow] (embeddings.east) -- (kgraph.west);
+
+% ==============================================================================
+% LAYER 2: CLUSTERING LAYER
+% ==============================================================================
+\begin{scope}[on background layer]
+    \fill[accent3!5, rounded corners=6pt] (-0.5, 0.2) rectangle (17.5, 4.8);
+    \draw[accent3!30, dashed, rounded corners=6pt] (-0.5, 0.2) rectangle (17.5, 4.8);
+\end{scope}
+\node[layerlabel={accent3}] at (0.2, 4.3) {Layer 2: Graph Clustering};
+
+\node[box={accent3}] (leiden) at (5.5, 2.5) {
+    \textbf{Leiden Community Detection}\\[2pt]
+    \footnotesize RBConfiguration Vertex Partition\\[1pt]
+    \footnotesize Resolution $\gamma = 1.0$\\[1pt]
+    \footnotesize Modularity maximization
+};
+
+\node[box={accent3}] (centroid) at (12.0, 2.5) {
+    \textbf{Post-hoc Centroid Grouping}\\[2pt]
+    \footnotesize Cosine $> 0.55$ threshold\\[1pt]
+    \footnotesize Links small communities\\[1pt]
+    \footnotesize Under larger parents
+};
+
+\draw[arrow, thick] (kgraph.south) -- ++(0,-0.4) -| (leiden.north);
+\draw[arrow] (leiden.east) -- (centroid.west);
+
+% ==============================================================================
+% LAYER 3: FSM ASSESSMENT LAYER
+% ==============================================================================
+\begin{scope}[on background layer]
+    \fill[accent2!5, rounded corners=6pt] (-0.5, -7.5) rectangle (17.5, -0.2);
+    \draw[accent2!30, dashed, rounded corners=6pt] (-0.5, -7.5) rectangle (17.5, -0.2);
+\end{scope}
+\node[layerlabel={accent2}] at (0.2, -0.5) {Layer 3: FSM Assessment \& Refinement};
+
+% Arrow from Layer 2 to Layer 3
+\draw[arrow, thick, primary] (centroid.south) -- ++(0,-1.0) -| (4.0, -1.2);
+
+% --- FSM State Machine ---
+\node[state] (init) at (1.0, -1.8) {INIT};
+\node[state] (cluster) at (3.5, -1.8) {CLUSTER};
+\node[state] (assess) at (6.0, -1.8) {ASSESS};
+\node[state] (split) at (8.5, -1.8) {SPLIT};
+\node[state] (check) at (11.0, -1.8) {CHECK};
+\node[state] (export) at (13.5, -1.8) {EXPORT};
+
+\draw[arrow] (init.east) -- (cluster.west);
+\draw[arrow] (cluster.east) -- (assess.west);
+\draw[arrow] (assess.east) -- (split.west);
+\draw[arrow] (split.east) -- (check.west);
+\draw[arrow] (check.east) -- (export.west);
+
+% Feedback loop
+\draw[arrow, accent2!80, bend right=40] (check.south) to node[below, annotation, accent2] {Not all stop conditions met} (assess.south);
+
+% --- Rule Scorer Detail Box ---
+\node[draw, rectangle, rounded corners=3pt, fill=accent2!8, draw=accent2!50,
+      minimum width=80mm, minimum height=40mm, inner sep=2mm]
+      (rules) at (4.0, -5.2) {
+    \begin{minipage}{76mm}
+        \textbf{\textcolor{accent2}{Rule Scorer (6 Deterministic Rules)}}\\[3pt]
+        \begin{tabular}{lll}
+        \textcolor{accent2}{$R_1$:} & $|C| < 30 \;\Rightarrow$ & D-fragment (too small) \\
+        \textcolor{accent2}{$R_2$:} & $|C| > 0.15 N_{\text{total}} \;\Rightarrow$ & C (needs splitting) \\
+        \textcolor{accent2}{$R_3$:} & $\text{keywords} \in \mathcal{B} \;\Rightarrow$ & D-meta (program marker) \\
+        \textcolor{accent2}{$R_4$:} & $H(C) \geq 4 \;\Rightarrow$ & C (high domain entropy) \\
+        \textcolor{accent2}{$R_5$:} & $\bar{d}(C) > 1.5\bar{d}_{\text{median}} \;\Rightarrow$ & C (high variance) \\
+        \textcolor{accent2}{$R_6$:} & \text{No rule triggered} \;\Rightarrow & \textbf{LLM Judge}
+        \end{tabular}
+    \end{minipage}
+};
+
+\draw[arrow, accent2!60] (assess.south) -- ++(0,-0.5) -| (rules.north -| 3.0, -2.5);
+
+% --- LLM Judge Detail Box ---
+\node[draw, rectangle, rounded corners=3pt, fill=accent3!8, draw=accent3!50,
+      minimum width=60mm, minimum height=32mm, inner sep=2mm]
+      (llm) at (11.0, -5.2) {
+    \begin{minipage}{56mm}
+        \textbf{\textcolor{accent3}{LLM Judge (MiniMax-M2.7)}}\\[3pt]
+        \footnotesize
+        Input: 5 representative +\\[1pt]
+        3 boundary samples\\[3pt]
+        Output: Grade A/B/C/D +\\[1pt]
+        natural-language topic name\\[3pt]
+        \textcolor{accent3}{Depth $\geq$ 2 $\to$ auto-accept}
+    \end{minipage}
+};
+
+\draw[arrow, accent3!60] (rules.east) -- (llm.west);
+\draw[arrow, accent3!60] (check.south) -- ++(0,-1.5) -| (llm.east -| 13.0, -4.0);
+
+% --- SPLIT detail ---
+\node[annotation] at (9.0, -4.5) {
+    \textcolor{accent2}{SPLIT:} Local k-NN + Leiden, $\gamma_{\text{local}} \in \{0.6, 0.8, 1.2\}$
+};
+
+% ==============================================================================
+% OUTPUT
+% ==============================================================================
+\node[draw, rectangle, rounded corners=4pt, fill=accent1!15, draw=accent1!60!black,
+      minimum width=80mm, minimum height=12mm, inner sep=2mm]
+      (output) at (9.0, -7.0) {
+    \textbf{Output:} \texttt{tree.json} (3-level hierarchy) $\;|\;$ \texttt{catalog.csv} (585 topics) $\;|\;$ \texttt{summary.json}
+};
+
+\draw[arrow, thick] (export.south) -- (output.north -| export.south);
+
+% ==============================================================================
+% ANNOTATIONS
+% ==============================================================================
+\node[annotation] at (0.5, -7.8) {\texttt{Fig 1: System Architecture}};
+
+\end{tikzpicture}
+\end{document}
